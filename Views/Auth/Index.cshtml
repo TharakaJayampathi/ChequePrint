@@ -290,30 +290,31 @@
             </div>
         }
 
-        <form asp-action="Login" method="post" id="loginForm">
-            @Html.AntiForgeryToken()
-            <button type="submit" class="btn-primary" id="loginButton">
-                <span id="loginText">
-                    <i class="fas fa-arrow-right"></i> Proceed
-                </span>
-                <span id="loginSpinner" style="display: none;">
-                    <span class="loading-spinner"></span> Loading...
-                </span>
-            </button>
-        </form>
+        <!-- JavaScript redirect to Dashboard without query string -->
+        <button type="button" class="btn-primary" id="loginButton" onclick="redirectToDashboard()">
+            <span id="loginText">
+                <i class="fas fa-arrow-right"></i> Proceed
+            </span>
+            <span id="loginSpinner" style="display: none;">
+                <span class="loading-spinner"></span> Loading...
+            </span>
+        </button>
     </div>
 
     <script>
-            // Loading state for form submission
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
+            function redirectToDashboard() {
                 const button = document.getElementById('loginButton');
                 const text = document.getElementById('loginText');
                 const spinner = document.getElementById('loginSpinner');
 
+                // Show loading state
                 button.disabled = true;
                 text.style.display = 'none';
                 spinner.style.display = 'inline';
-            });
+
+                // Redirect to Dashboard without query string
+                window.location.href = '@Url.Action("Index", "Dashboard")';
+            }
 
             // Handle background image loading
             const bgImage = document.querySelector('.bg-image');
