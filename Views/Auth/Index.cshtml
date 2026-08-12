@@ -1,5 +1,305 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Welcome";
+    Layout = null;
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ChequePrint</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* Background Video */
+            .video-wrapper {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                overflow: hidden;
+            }
+
+            #background-video {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                min-width: 100%;
+                min-height: 100%;
+                width: auto;
+                height: auto;
+                transform: translate(-50%, -50%);
+                object-fit: cover;
+            }
+
+            /* Subtle overlay - only slight tint, no blur */
+            .video-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(102, 126, 234, 0.15);
+                z-index: 1;
+                /* Removed backdrop-filter to prevent blur */
+            }
+
+            .welcome-container {
+                background: rgba(255, 255, 255, 0.92);
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                padding: 30px 40px 25px 40px;
+                width: 100%;
+                max-width: 420px;
+                animation: fadeIn 0.5s ease-in-out;
+                text-align: center;
+                position: relative;
+                z-index: 2;
+                /* Removed backdrop-filter to keep container clear */
+            }
+
+            @@keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @@keyframes float {
+                0% {
+                    transform: translateY(0px);
+                }
+
+                50% {
+                    transform: translateY(-8px);
+                }
+
+                100% {
+                    transform: translateY(0px);
+                }
+            }
+
+            @@keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .welcome-header {
+                margin-bottom: 20px;
+            }
+
+                .welcome-header h1 {
+                    font-size: 32px;
+                    color: #333;
+                    font-weight: 700;
+                    letter-spacing: 1px;
+                }
+
+                    .welcome-header h1 span {
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                    }
+
+            .image-container {
+                margin: 20px 0;
+                padding: 15px;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 12px;
+                position: relative;
+                animation: float 3s ease-in-out infinite;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            }
+
+                .image-container img {
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 8px;
+                    display: block;
+                    margin: 0 auto;
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+                }
+
+            .btn-primary {
+                width: 100%;
+                padding: 12px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border: none;
+                border-radius: 12px;
+                color: white;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                margin-top: 5px;
+                letter-spacing: 1px;
+                position: relative;
+                overflow: hidden;
+            }
+
+                .btn-primary::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                    transition: left 0.5s ease;
+                }
+
+                .btn-primary:hover::before {
+                    left: 100%;
+                }
+
+                .btn-primary:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+                }
+
+                .btn-primary:active {
+                    transform: translateY(0);
+                }
+
+                .btn-primary:disabled {
+                    opacity: 0.7;
+                    cursor: not-allowed;
+                    transform: none;
+                }
+
+                .btn-primary i {
+                    margin-right: 8px;
+                }
+
+            .loading-spinner {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                border: 3px solid rgba(255, 255, 255, 0.3);
+                border-top-color: white;
+                border-radius: 50%;
+                animation: spin 0.6s linear infinite;
+                vertical-align: middle;
+                margin-right: 8px;
+            }
+
+            .alert-warning {
+                background: #fff3cd;
+                border: 1px solid #ffeeba;
+                color: #856404;
+                padding: 10px;
+                border-radius: 10px;
+                margin-bottom: 15px;
+                font-size: 14px;
+            }
+
+            @@media (max-width: 480px) {
+                .welcome-container {
+                    padding: 20px;
+                    max-width: 100%;
+                }
+
+                .welcome-header h1 {
+                    font-size: 26px;
+                }
+
+                .image-container {
+                    padding: 10px;
+                    margin: 15px 0;
+                }
+
+                .btn-primary {
+                    padding: 10px;
+                    font-size: 14px;
+                }
+            }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="video-wrapper">
+        <video autoplay muted loop playsinline id="background-video">
+            <source src="~/video/cheque_print_background_video_v1.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!-- Subtle overlay - only slight purple tint, no blur -->
+    <div class="video-overlay"></div>
+
+    <div class="welcome-container">
+        <div class="welcome-header">
+            <h1><span>Check</span> Print</h1>
+        </div>
+
+        <!-- Image Container -->
+        <div class="image-container">
+            <img src="~/img/cheque_print_v1.png" alt="Cheque Print" />
+        </div>
+
+        @if (!string.IsNullOrEmpty(ViewData["ReturnUrl"]?.ToString()))
+        {
+            <div class="alert-warning">
+                <i class="fas fa-info-circle"></i> Please log in to access this page.
+            </div>
+        }
+
+        <form asp-action="Login" method="post" id="loginForm">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn-primary" id="loginButton">
+                <span id="loginText">
+                    <i class="fas fa-arrow-right"></i> Proceed
+                </span>
+                <span id="loginSpinner" style="display: none;">
+                    <span class="loading-spinner"></span> Loading...
+                </span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+            // Loading state for form submission
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                const button = document.getElementById('loginButton');
+                const text = document.getElementById('loginText');
+                const spinner = document.getElementById('loginSpinner');
+
+                button.disabled = true;
+                text.style.display = 'none';
+                spinner.style.display = 'inline';
+            });
+
+            // Handle video loading
+            const video = document.getElementById('background-video');
+            video.addEventListener('error', function() {
+                // If video fails, show solid gradient background
+                document.querySelector('.video-wrapper').style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                document.querySelector('.video-overlay').style.background = 'rgba(102, 126, 234, 0.3)';
+            });
+    </script>
+</body>
+</html>
