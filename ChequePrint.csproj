@@ -7,6 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\nifty\.DS_Store" />
+    <None Include="wwwroot\nifty\css\.DS_Store" />
+    <None Include="wwwroot\nifty\css\color-schemes\.DS_Store" />
+    <None Include="wwwroot\nifty\css\color-schemes\all-headers\.DS_Store" />
+    <None Include="wwwroot\nifty\css\demo-purpose\.DS_Store" />
+    <None Include="wwwroot\nifty\img\.DS_Store" />
+    <None Include="wwwroot\nifty\img\color-schemes\.DS_Store" />
+    <None Include="wwwroot\nifty\img\megamenu\.DS_Store" />
+    <None Include="wwwroot\nifty\js\.DS_Store" />
+    <None Include="wwwroot\nifty\pages\.DS_Store" />
+    <None Include="wwwroot\nifty\premium\.DS_Store" />
+    <None Include="wwwroot\nifty\premium\boxed-bg\.DS_Store" />
+    <None Include="wwwroot\nifty\premium\icon-sets\.DS_Store" />
+    <None Include="wwwroot\nifty\premium\icon-sets\icons\.DS_Store" />
+    <None Include="wwwroot\nifty\premium\icon-sets\icons\line-icons\.DS_Store" />
+    <None Include="wwwroot\nifty\premium\icon-sets\icons\line-icons\font\.DS_Store" />
+    <None Include="wwwroot\nifty\premium\icon-sets\icons\solid-icons\.DS_Store" />
+    <None Include="wwwroot\nifty\premium\icon-sets\icons\solid-icons\font\.DS_Store" />
+    <None Include="wwwroot\nifty\premium\icon-sets\thumbs\.DS_Store" />
+    <None Include="wwwroot\nifty\vendors\.DS_Store" />
+    <None Include="wwwroot\nifty\vendors\themify-icons\.DS_Store" />
+    <None Include="wwwroot\nifty\vendors\themify-icons\fonts\.DS_Store" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11">

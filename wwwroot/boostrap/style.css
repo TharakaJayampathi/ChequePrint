@@ -1,0 +1,96 @@
+.brand-logo {
+    position: absolute;
+    top: 1rem;
+    z-index: 1;
+    left: 1rem;
+    width: 70px;
+    ;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #6e6b7b;
+}
+
+.wave {
+    background-color: #e8f8ff;
+}
+
+@media (max-width:991.98px) {
+    .wave {
+        -webkit-border-bottom-right-radius: 60px;
+        -webkit-border-bottom-left-radius: 60px;
+        -moz-border-radius-bottomright: 60px;
+        -moz-border-radius-bottomleft: 60px;
+        border-bottom-right-radius: 60px;
+        border-bottom-left-radius: 60px;
+    }
+
+
+    .brand-logo {
+        width: 50px;
+    }
+}
+
+label {
+    color: #a5a5a5 !important;
+}
+
+.loginlogo {
+    height: auto;
+    max-width: 200px;
+}
+
+@media (max-width:991.98px) {
+    .loginlogo {
+        height: auto;
+        max-width: auto;
+    }
+
+    body, html {
+        font-size: 14px;
+    }
+}
+
+.loginbg {
+    max-width: 45vw;
+}
+
+body, html {
+    display: block;
+    height: 100%;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #5e5873;
+}
+
+.font-weight-bold {
+    font-weight: 500 !important;
+}
+
+h2.card-title {
+    font-size: 1.7rem;
+    font-weight: 300 !important;
+    color: #084DA6;
+}
+
+.btn.btn-first {
+    color: #fff;
+    border: 0;
+    background-color: #084DA6;
+}
+
+.btn.btn-second {
+    color: #fff;
+    border: 0;
+    background-color: #F29D35;
+}
+
+.inputborder {
+    border: 2px solid #084DA6;
+}
