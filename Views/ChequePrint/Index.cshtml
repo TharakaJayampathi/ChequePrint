@@ -47,12 +47,15 @@
                     <div class="row">
                         <div class="col-md-4">
                             <input id="txtAttachment" type="file" class="form-control" name="file" accept=".xlsx" />
-                            <div class="spinner-border text-primary" id="lblSpinner" style="display: none;" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
                         </div>
                         <div class="col-md-4 mr-5">
-                            <button type="submit" class="btn btn-primary mr-5" id="btnAddAttachment">Upload</button>
+                            <button type="button" class="btn btn-primary mr-5" id="btnAddAttachment">
+                                <span id="btnText"><i class="fas fa-upload"></i> Upload</span>
+                                <span id="btnSpinner" style="display: none;">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Uploading...
+                                </span>
+                            </button>
                         </div>
                     </div>
                     <br>

@@ -5,9 +5,10 @@
         toastr.error("No file selected.");
         return;
     }
-    $('#btnAddAttachment').attr('disabled', true);
-    $('#btnAttachmentSubmit').attr('disabled', true);
-    $('#lblSpinner').show();
+    $('#btnText').hide();
+    $('#btnSpinner').show();
+    $('#btnAddAttachment').prop('disabled', true);
+
     var files = input.files;
     for (var i = 0; i < files.length; i++) {
         formData.append("Files", files[i]);
@@ -20,6 +21,7 @@
         processData: false,
         success: function (response) {
             console.log(response);
+            toastr.success("File uploaded successfully!");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var errorMessage = jqXHR.responseJSON && jqXHR.responseJSON.message
@@ -28,9 +30,9 @@
             toastr.error(errorMessage);
         },
         complete: function () {
-            $('#btnAddAttachment').attr('disabled', false);
-            $('#btnAttachmentSubmit').attr('disabled', false);
-            $('#lblSpinner').hide();
+            $('#btnText').show();
+            $('#btnSpinner').hide();
+            $('#btnAddAttachment').prop('disabled', false);
             document.getElementById('txtAttachment').value = '';
         }
     });
