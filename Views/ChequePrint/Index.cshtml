@@ -46,10 +46,13 @@
                     <br>
                     <div class="row">
                         <div class="col-md-4">
-                            <input id="txtFileUploadPath" type="file" class="form-control" name="file" accept=".xlsx" />
+                            <input id="txtAttachment" type="file" class="form-control" name="file" accept=".xlsx" />
+                            <div class="spinner-border text-primary" id="lblSpinner" style="display: none;" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
                         <div class="col-md-4 mr-5">
-                            <button type="submit" class="btn btn-primary mr-5" id="btnSaveFileUpload">Submit</button>
+                            <button type="submit" class="btn btn-primary mr-5" id="btnAddAttachment">Upload</button>
                         </div>
                     </div>
                     <br>
@@ -100,6 +103,5 @@
 </style>
 
 @section scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    <script src="~/js/adminrequesttype/admin-request-type.js" asp-append-version="true"></script>
+    <script src="~/js/chequeprint/cheque-print.js" asp-append-version="true"></script>
 }
