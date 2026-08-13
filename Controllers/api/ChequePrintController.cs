@@ -21,6 +21,7 @@ namespace ChequePrint.Controllers.api
         {
             try
             {
+                await _chequePrintRepository.ChequePrintAttachmentUploadAsync(model);
                 return Ok();
             }
             catch (Exception ex)
