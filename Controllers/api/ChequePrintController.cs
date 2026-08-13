@@ -11,8 +11,8 @@ namespace ChequePrint.Controllers.api
         { 
         }
 
-        [HttpPost("AdminRequestAttachmentUpload")]
-        public async Task<IActionResult> AdminRequestAttachmentUploadAsync([FromForm] ChequePrintAttachmentUploadDTO model)
+        [HttpPost("ChequePrintAttachmentUpload")]
+        public async Task<IActionResult> ChequePrintAttachmentUploadAsync([FromForm] ChequePrintAttachmentUploadDTO model)
         {
             try
             {

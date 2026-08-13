@@ -13,18 +13,13 @@
         formData.append("Files", files[i]);
     }
     $.ajax({
-        url: '/api/AdminRequest/AdminRequestAttachmentUpload',
+        url: '/api/ChequePrint/ChequePrintAttachmentUpload',
         type: 'POST',
         data: formData,
         contentType: false,
         processData: false,
         success: function (response) {
             console.log(response);
-            attachmentLines = $.merge(attachmentLines, response);
-            $.each(attachmentLines, function (i, item) {
-                item.no = i + 1;
-            });
-            bindAttachmentGrid(attachmentLines);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             var errorMessage = jqXHR.responseJSON && jqXHR.responseJSON.message
