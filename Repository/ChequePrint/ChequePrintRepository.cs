@@ -1,7 +1,12 @@
-﻿using ChequePrint.DTOs.ChequePrint;
+﻿using AspNetCore.Reporting;
+using ChequePrint.DTOs.ChequePrint;
 using ChequePrint.Interfaces.ChequePrint;
 using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Bibliography;
+using System.Net.Mail;
+using System.Security.Claims;
 using System.Transactions;
+using System.Xml;
 
 namespace ChequePrint.Repository.ChequePrint
 {
@@ -57,7 +62,7 @@ namespace ChequePrint.Repository.ChequePrint
                                 IXLWorksheet worksheet = wbook.Worksheet(1);
                                 var ws = wbook.Worksheet(worksheet.Name);
 
-                                var TempHeader = "HRIS NoEmployee NameDivision";
+                                var TempHeader = "Employee NameDateAmount";
                                 var CreateTempHeader = "";
 
                                 bool FirstRow = true;
@@ -88,15 +93,33 @@ namespace ChequePrint.Repository.ChequePrint
                                     throw new Exception("There is no records in the uploaded file");
                                 }
 
+                                var _checkPrintDataList = new List<CheckPrintDataSetDTO>();
                                 for (var i = 2; i <= lastRow; i++)
                                 {
                                     var _employeeName = ws.Cell($"A{i}").GetValue<string>().Trim();
+                                    var _date = ws.Cell($"B{i}").GetValue<string>().Trim();
                                     var _amountDecimal = Convert.ToDecimal(0.0);
-                                    var _amount = ws.Cell($"B{i}").GetValue<string>();
-                                    if (!string.IsNullOrEmpty(_amount))
-                                    {
-                                        _amountDecimal = Convert.ToDecimal(ws.Cell($"B{i}").GetValue<string>());
-                                    }
+                                    var _amount = ws.Cell($"C{i}").GetValue<string>();
+
+                                    var _checkPrintData = new CheckPrintDataSetDTO();
+                                    _checkPrintData.EmployeeName = _employeeName;
+                                    _checkPrintData.Date = _date;
+                                    _checkPrintData.Amount = _amount;
+
+                                    _checkPrintDataList.Add(_checkPrintData);
+                                }
+
+                                foreach (var item in _checkPrintDataList)
+                                {
+                                    #region Attach Excel File
+                                    string mimetype = "";
+
+                                    // RDLC Report Path
+                                    var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
+
+                                    Dictionary<string, string> parameters = new Dictionary<string, string>();
+                                    parameters.Add("prm", "RDLC Report");
+                                    #endregion
                                 }
 
                                 if (System.IO.File.Exists(filePath))
