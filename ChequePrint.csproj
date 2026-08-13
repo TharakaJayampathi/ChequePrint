@@ -41,4 +41,19 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="DataSet\ChequePrint\dsChequePrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>dsChequePrint.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DataSet\ChequePrint\dsChequePrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsChequePrint.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
 </Project>
