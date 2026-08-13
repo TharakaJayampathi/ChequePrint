@@ -1,4 +1,5 @@
 ﻿using ChequePrint.DTOs.ChequePrint;
+using ChequePrint.Interfaces.ChequePrint;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChequePrint.Controllers.api
@@ -7,8 +8,12 @@ namespace ChequePrint.Controllers.api
     [ApiController]
     public class ChequePrintController : ControllerBase
     {
-        public ChequePrintController()
-        { 
+        private readonly IChequePrintRepository _chequePrintRepository;
+
+        public ChequePrintController(
+            IChequePrintRepository chequePrintRepository)
+        {
+            _chequePrintRepository = chequePrintRepository;
         }
 
         [HttpPost("ChequePrintAttachmentUpload")]
