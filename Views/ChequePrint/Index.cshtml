@@ -1,5 +1,139 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewBag.Title = "Admin Request Types";
+    ViewData["Logo"] = Url.Content("~/lib/landing-page/finance-logo.png");
+    Layout = "~/Views/Shared/Nifty/_Layout.cshtml";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+<div class="toolbar py-5 py-lg-10" id="kt_toolbar">
+    <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
+        <div class="page-title d-flex flex-column">
+            <h3 class="text-white fw-bolder fs-2qx me-5">Admin Request Types</h3>
+            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+                <li class="breadcrumb-item text-white opacity-75">
+                    <a href="~/dashboard" class="text-white text-hover-primary">
+                        Smart Flow
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                </li>
+                <li class="breadcrumb-item text-white opacity-75">
+                    <a href="#" class="text-white text-hover-primary">
+                        Admin Request Types
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="d-flex align-items-center flex-wrap py-2">
+            <button class="btn btn-primary me-2" id="btnCreate" name="button">
+                <i class="fa fa-plus" aria-hidden="true"></i> Admin Request Type
+            </button>
+            <input id="inputCanInsert" type="hidden" value="@ViewBag.CanInsert" />
+            <input id="inputCanUpdate" type="hidden" value="@ViewBag.CanUpdate" />
+            <input id="inputCanView" type="hidden" value="@ViewBag.CanView" />
+            <input id="inputCanApprove" type="hidden" value="@ViewBag.CanApprove" />
+            <input id="inputCanFileUpload" type="hidden" value="@ViewBag.CanUpload" />
+            <input id="inputCanFileDownload" type="hidden" value="@ViewBag.CanDownload" />
+        </div>
+    </div>
+</div>
+
+<div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+    <div class="content flex-row-fluid" id="kt_content">
+        <div id="placeHolder"></div>
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-center">
+                        <h3 class="card-title">
+                            Admin Request Types
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card-body pt-0 w-auto">
+                <div class="card-body w-auto">
+                    <div id="gridContainer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="formCreate">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="captionName"></h5>
+                    <button type="button" class="btn btn-xs btn-danger" data-bs-dismiss="modal">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="hidId" name="Id" />
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label class="control-label">Type<span style="color: red;">*</span></label>
+                            <input type="text" id="txtTypeName" class="form-control" placeholder="Type">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="btnSubmit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    #formCreate .select2-container {
+        z-index: 10000;
+        width: 100% !important;
+    }
+    div.container {
+        max-width: 1200px
+    }
+    /*.fa {
+                height: 20px;
+                margin-top: -5px;
+            }*/
+    .fa-edit {
+        height: 20px;
+        width: 5px;
+        margin-top: -4px;
+    }
+    .fa-times {
+        height: 20px;
+        width: 5px;
+        margin-top: -7px;
+    }
+
+    .fa-ban {
+        height: 20px;
+        width: 5px;
+        margin-top: -4px;
+    }
+
+    .fa-check {
+        height: 20px;
+        width: 5px;
+        margin-top: -4px;
+    }
+    label {
+        color: black;
+    }
+</style>
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="~/js/adminrequesttype/admin-request-type.js" asp-append-version="true"></script>
 }
