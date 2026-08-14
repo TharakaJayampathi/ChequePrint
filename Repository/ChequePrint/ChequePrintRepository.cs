@@ -155,7 +155,7 @@ namespace ChequePrint.Repository.ChequePrint
                                         Year1 = $"{Year1}", Year2 = $"{Year2}", Year3 = $"{Year3}", Year4 = $"{Year4}",
                                         Month1 = $"{Month1}", Month2 = $"{Month2}",
                                         Date1 = $"{Date1}", Date2 = $"{Date2}",
-                                        AmountInWord = $"{_amountInWord} {_amountInWordSuffix}"
+                                        AmountInWord = _amountInWord
                                     }
                                 };
 
@@ -214,21 +214,47 @@ namespace ChequePrint.Repository.ChequePrint
         private static readonly string[] _tens = { "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
         private static readonly string[] _scale = { "", "Thousand", "Million", "Billion", "Trillion" };
 
+        /// <summary>
+        /// Converts a decimal amount to words with proper formatting
+        /// Example: 1,878,912.39 -> "One Million Eight Hundred Seventy Eight Thousand Nine Hundred Twelve Rupees and Thirty Nine Cents Only"
+        /// </summary>
         private static string ConvertAmountToWords(decimal amount)
         {
             var wholePart = (long)Math.Floor(amount);
             var fractionalPart = (int)Math.Round((amount - wholePart) * 100);
 
-            var words = ConvertWholeNumberToWords(wholePart);
+            var words = new StringBuilder();
 
-            if (fractionalPart > 0)
+            // Convert whole part
+            if (wholePart > 0)
             {
-                words += $" and {ConvertWholeNumberToWords(fractionalPart)} Cents";
+                words.Append(ConvertWholeNumberToWords(wholePart));
+                words.Append(" Rupees");
+            }
+            else
+            {
+                words.Append("Zero Rupees");
             }
 
-            return words;
+            // Add fractional part (cents)
+            if (fractionalPart > 0)
+            {
+                if (wholePart > 0)
+                {
+                    words.Append(" and ");
+                }
+                words.Append(ConvertFractionToWords(fractionalPart));
+                words.Append(" Cents");
+            }
+
+            words.Append(" Only");
+
+            return words.ToString().Trim();
         }
 
+        /// <summary>
+        /// Converts a whole number to words using International numbering system
+        /// </summary>
         private static string ConvertWholeNumberToWords(long number)
         {
             if (number == 0) return "Zero";
@@ -238,9 +264,9 @@ namespace ChequePrint.Repository.ChequePrint
                 return "Negative " + ConvertWholeNumberToWords(Math.Abs(number));
             }
 
-            var words = "";
-
+            var words = new StringBuilder();
             int groupIndex = 0;
+
             while (number > 0)
             {
                 var group = (int)(number % 1000);
@@ -256,51 +282,49 @@ namespace ChequePrint.Repository.ChequePrint
                         groupWords += " " + scale;
                     }
 
-                    if (!string.IsNullOrEmpty(words))
+                    if (words.Length > 0)
                     {
+                        // Insert the group at the beginning with proper spacing
                         if (number == 0 && group < 100)
                         {
-                            groupWords = "and " + groupWords;
+                            // Don't add "and" here - we'll add it in the main method
+                            words.Insert(0, groupWords + " ");
                         }
                         else
                         {
-                            groupWords += " ";
+                            words.Insert(0, groupWords + " ");
                         }
                     }
-
-                    words = groupWords + words;
+                    else
+                    {
+                        words.Append(groupWords);
+                    }
                 }
 
                 groupIndex++;
             }
 
-            words = words.Replace("  ", " ").Trim();
-
-            // Capitalize first letter
-            if (!string.IsNullOrEmpty(words))
-            {
-                words = char.ToUpper(words[0]) + words.Substring(1);
-            }
-
-            return words;
+            return words.ToString().Trim();
         }
 
-
+        /// <summary>
+        /// Converts a 3-digit group to words (0-999)
+        /// </summary>
         private static string ConvertGroupToWords(int number)
         {
             if (number == 0) return "";
 
-            var words = "";
+            var words = new StringBuilder();
 
             var hundreds = number / 100;
             var remainder = number % 100;
 
             if (hundreds > 0)
             {
-                words += _units[hundreds] + " Hundred";
+                words.Append(_units[hundreds] + " Hundred");
                 if (remainder > 0)
                 {
-                    words += " ";
+                    words.Append(" ");
                 }
             }
 
@@ -308,19 +332,42 @@ namespace ChequePrint.Repository.ChequePrint
             {
                 if (remainder < 20)
                 {
-                    words += _units[remainder];
+                    words.Append(_units[remainder]);
                 }
                 else
                 {
-                    words += _tens[remainder / 10];
+                    words.Append(_tens[remainder / 10]);
                     if (remainder % 10 > 0)
                     {
-                        words += "-" + _units[remainder % 10];
+                        words.Append(" " + _units[remainder % 10]);
                     }
                 }
             }
 
-            return words;
+            return words.ToString().Trim();
+        }
+
+        /// <summary>
+        /// Converts fractional part (cents) to words
+        /// </summary>
+        private static string ConvertFractionToWords(int cents)
+        {
+            if (cents == 0) return "";
+
+            if (cents < 20)
+            {
+                return _units[cents];
+            }
+            else
+            {
+                var tens = _tens[cents / 10];
+                var remainder = cents % 10;
+                if (remainder > 0)
+                {
+                    return tens + " " + _units[remainder];
+                }
+                return tens;
+            }
         }
     }
 }
