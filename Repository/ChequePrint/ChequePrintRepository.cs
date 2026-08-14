@@ -113,7 +113,6 @@ namespace ChequePrint.Repository.ChequePrint
 
                             foreach (var item in _checkPrintDataList)
                             {
-                                // Parse the date extracted from Excel (e.g. "8/13/2026")
                                 if (!DateTime.TryParse(item.Date, CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate))
                                 {
                                     var formats = new[] { "M/d/yyyy", "MM/dd/yyyy", "d/M/yyyy", "dd/MM/yyyy", "yyyy-MM-dd" };
@@ -136,7 +135,6 @@ namespace ChequePrint.Repository.ChequePrint
                                 string Date1 = dayDigits[0].ToString();
                                 string Date2 = dayDigits[1].ToString();
 
-                                // Parse the amount extracted from Excel (handles "10,000.00")
                                 if (!decimal.TryParse(item.Amount, NumberStyles.Number, CultureInfo.InvariantCulture, out var amountDecimal))
                                 {
                                     throw new Exception($"Invalid amount for employee '{item.EmployeeName}': '{item.Amount}'");
@@ -150,15 +148,15 @@ namespace ChequePrint.Repository.ChequePrint
                                 int extensionCheckPrint = 1;
 
                                 var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
-                            new CheckPrintDataSetDTO {
-                                EmployeeName = $"{item.EmployeeName}",
-                                Amount = $"{Amount}",
-                                Year1 = $"{Year1}", Year2 = $"{Year2}", Year3 = $"{Year3}", Year4 = $"{Year4}",
-                                Month1 = $"{Month1}", Month2 = $"{Month2}",
-                                Date1 = $"{Date1}", Date2 = $"{Date2}",
-                                AmountInWord = $"{_amountInWord} {_amountInWordSuffix}"
-                            }
-                        };
+                                new CheckPrintDataSetDTO {
+                                    EmployeeName = $"{item.EmployeeName}",
+                                    Amount = $"{Amount}",
+                                    Year1 = $"{Year1}", Year2 = $"{Year2}", Year3 = $"{Year3}", Year4 = $"{Year4}",
+                                    Month1 = $"{Month1}", Month2 = $"{Month2}",
+                                    Date1 = $"{Date1}", Date2 = $"{Date2}",
+                                    AmountInWord = $"{_amountInWord} {_amountInWordSuffix}"
+                                }
+                            };
 
                                 var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
 
@@ -170,7 +168,6 @@ namespace ChequePrint.Repository.ChequePrint
 
                                 var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
 
-                                // Build a unique, safe file name per employee for inside the zip
                                 var safeEmployeeName = string.Join("_", item.EmployeeName.Split(Path.GetInvalidFileNameChars()));
                                 var pdfEntryName = $"{safeEmployeeName} - LOFIN Fund Transfer Letter.pdf";
 

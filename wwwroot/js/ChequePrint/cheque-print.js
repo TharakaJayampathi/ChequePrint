@@ -20,10 +20,9 @@
         contentType: false,
         processData: false,
         xhrFields: {
-            responseType: 'blob' // important: tells the browser to expect binary data
+            responseType: 'blob'
         },
         success: function (blob, status, xhr) {
-            // Try to pull the real file name from the Content-Disposition header
             var disposition = xhr.getResponseHeader('Content-Disposition');
             var fileName = 'ChequePrintLetters.zip';
             if (disposition && disposition.indexOf('filename=') !== -1) {
@@ -45,8 +44,6 @@
             toastr.success("Cheque print letters generated successfully!");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            // jQuery gives us the blob here too since responseType is 'blob',
-            // so we need to read it back out as text/JSON to get the error message
             if (jqXHR.responseText) {
                 try {
                     var errJson = JSON.parse(jqXHR.responseText);
@@ -57,8 +54,6 @@
             } else if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
                 toastr.error(jqXHR.responseJSON.message);
             } else {
-                // when responseType is blob, jQuery won't auto-parse JSON errors —
-                // read the blob manually as a fallback
                 if (jqXHR.response instanceof Blob) {
                     var reader = new FileReader();
                     reader.onload = function () {
