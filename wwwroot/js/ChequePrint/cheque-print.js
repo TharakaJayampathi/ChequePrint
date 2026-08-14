@@ -14,7 +14,7 @@
     }
 
     $.ajax({
-        url: '/api/ChequePrint/ChequePrintAttachmentUpload',
+        url: '/api/chequeprint/cheque-print-attachment-upload',
         type: 'POST',
         data: formData,
         contentType: false,

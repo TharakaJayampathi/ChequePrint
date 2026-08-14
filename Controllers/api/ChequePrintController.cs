@@ -16,7 +16,7 @@ namespace ChequePrint.Controllers.api
             _chequePrintRepository = chequePrintRepository;
         }
 
-        [HttpPost("ChequePrintAttachmentUpload")]
+        [HttpPost("cheque-print-attachment-upload")]
         public async Task<IActionResult> ChequePrintAttachmentUploadAsync([FromForm] ChequePrintAttachmentUploadDTO model)
         {
             try
