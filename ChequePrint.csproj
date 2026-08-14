@@ -1,67 +1,68 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<None Include="wwwroot\nifty\.DS_Store" />
+		<None Include="wwwroot\nifty\css\.DS_Store" />
+		<None Include="wwwroot\nifty\css\color-schemes\.DS_Store" />
+		<None Include="wwwroot\nifty\css\color-schemes\all-headers\.DS_Store" />
+		<None Include="wwwroot\nifty\css\demo-purpose\.DS_Store" />
+		<None Include="wwwroot\nifty\img\.DS_Store" />
+		<None Include="wwwroot\nifty\img\color-schemes\.DS_Store" />
+		<None Include="wwwroot\nifty\img\megamenu\.DS_Store" />
+		<None Include="wwwroot\nifty\js\.DS_Store" />
+		<None Include="wwwroot\nifty\pages\.DS_Store" />
+		<None Include="wwwroot\nifty\premium\.DS_Store" />
+		<None Include="wwwroot\nifty\premium\boxed-bg\.DS_Store" />
+		<None Include="wwwroot\nifty\premium\icon-sets\.DS_Store" />
+		<None Include="wwwroot\nifty\premium\icon-sets\icons\.DS_Store" />
+		<None Include="wwwroot\nifty\premium\icon-sets\icons\line-icons\.DS_Store" />
+		<None Include="wwwroot\nifty\premium\icon-sets\icons\line-icons\font\.DS_Store" />
+		<None Include="wwwroot\nifty\premium\icon-sets\icons\solid-icons\.DS_Store" />
+		<None Include="wwwroot\nifty\premium\icon-sets\icons\solid-icons\font\.DS_Store" />
+		<None Include="wwwroot\nifty\premium\icon-sets\thumbs\.DS_Store" />
+		<None Include="wwwroot\nifty\vendors\.DS_Store" />
+		<None Include="wwwroot\nifty\vendors\themify-icons\.DS_Store" />
+		<None Include="wwwroot\nifty\vendors\themify-icons\fonts\.DS_Store" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\nifty\.DS_Store" />
-    <None Include="wwwroot\nifty\css\.DS_Store" />
-    <None Include="wwwroot\nifty\css\color-schemes\.DS_Store" />
-    <None Include="wwwroot\nifty\css\color-schemes\all-headers\.DS_Store" />
-    <None Include="wwwroot\nifty\css\demo-purpose\.DS_Store" />
-    <None Include="wwwroot\nifty\img\.DS_Store" />
-    <None Include="wwwroot\nifty\img\color-schemes\.DS_Store" />
-    <None Include="wwwroot\nifty\img\megamenu\.DS_Store" />
-    <None Include="wwwroot\nifty\js\.DS_Store" />
-    <None Include="wwwroot\nifty\pages\.DS_Store" />
-    <None Include="wwwroot\nifty\premium\.DS_Store" />
-    <None Include="wwwroot\nifty\premium\boxed-bg\.DS_Store" />
-    <None Include="wwwroot\nifty\premium\icon-sets\.DS_Store" />
-    <None Include="wwwroot\nifty\premium\icon-sets\icons\.DS_Store" />
-    <None Include="wwwroot\nifty\premium\icon-sets\icons\line-icons\.DS_Store" />
-    <None Include="wwwroot\nifty\premium\icon-sets\icons\line-icons\font\.DS_Store" />
-    <None Include="wwwroot\nifty\premium\icon-sets\icons\solid-icons\.DS_Store" />
-    <None Include="wwwroot\nifty\premium\icon-sets\icons\solid-icons\font\.DS_Store" />
-    <None Include="wwwroot\nifty\premium\icon-sets\thumbs\.DS_Store" />
-    <None Include="wwwroot\nifty\vendors\.DS_Store" />
-    <None Include="wwwroot\nifty\vendors\themify-icons\.DS_Store" />
-    <None Include="wwwroot\nifty\vendors\themify-icons\fonts\.DS_Store" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="ClosedXML" Version="0.105.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
+		<PackageReference Include="System.Security.Permissions" Version="7.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
-    <PackageReference Include="ClosedXML" Version="0.105.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.11">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.33" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="DataSet\ChequePrint\dsChequePrint.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>dsChequePrint.xsd</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="DataSet\ChequePrint\dsChequePrint.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>dsChequePrint.xsd</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="DataSet\ChequePrint\dsChequePrint.xsd">
+			<Generator>MSDataSetGenerator</Generator>
+			<LastGenOutput>dsChequePrint.Designer.cs</LastGenOutput>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="DataSet\ChequePrint\dsChequePrint.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsChequePrint.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-    <ItemGroup>
-	    <Content Update="wwwroot\ChequePrint\ChequePrint.rdlc">
-		    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	    </Content>
-    </ItemGroup>
+	<ItemGroup>
+		<Content Update="wwwroot\Report\ChequePrint\ChequePrint.rdlc">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
 </Project>
