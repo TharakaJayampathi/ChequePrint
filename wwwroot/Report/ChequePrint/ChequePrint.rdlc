@@ -92,7 +92,11 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!EmployeeName.Value, "dsChequePrint")</Value>
-                    <Style />
+                    <Style>
+                      <FontStyle>Italic</FontStyle>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -101,7 +105,7 @@
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.98333in</Top>
             <Left>1.14488in</Left>
-            <Height>0.24166in</Height>
+            <Height>0.26333in</Height>
             <Width>7.10834in</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -122,7 +126,11 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!Amount.Value, "dsChequePrint")</Value>
-                    <Style />
+                    <Style>
+                      <FontStyle>Italic</FontStyle>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -131,7 +139,7 @@
             <rd:DefaultName>Textbox2</rd:DefaultName>
             <Top>1.46611in</Top>
             <Left>1.41155in</Left>
-            <Height>0.24167in</Height>
+            <Height>0.26333in</Height>
             <Width>6.84167in</Width>
             <ZIndex>2</ZIndex>
             <Style>
