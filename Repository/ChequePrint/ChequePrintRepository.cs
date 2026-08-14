@@ -2,6 +2,8 @@
 using ChequePrint.DTOs.ChequePrint;
 using ChequePrint.Interfaces.ChequePrint;
 using ClosedXML.Excel;
+using System.Globalization;
+using System.Text;
 using System.Transactions;
 
 namespace ChequePrint.Repository.ChequePrint
@@ -94,8 +96,7 @@ namespace ChequePrint.Repository.ChequePrint
                                 {
                                     var _employeeName = ws.Cell($"A{i}").GetValue<string>().Trim();
                                     var _date = ws.Cell($"B{i}").GetValue<string>().Trim();
-                                    var _amountDecimal = Convert.ToDecimal(0.0);
-                                    var _amount = ws.Cell($"C{i}").GetValue<string>();
+                                    var _amount = ws.Cell($"C{i}").GetValue<string>().Trim();
 
                                     var _checkPrintData = new CheckPrintDataDTO();
                                     _checkPrintData.EmployeeName = _employeeName;
@@ -107,16 +108,38 @@ namespace ChequePrint.Repository.ChequePrint
 
                                 foreach (var item in _checkPrintDataList)
                                 {
-                                    string Year1 = "2";
-                                    string Year2 = "0";
-                                    string Year3 = "2";
-                                    string Year4 = "6";
-                                    string Month1 = "0";
-                                    string Month2 = "8";
-                                    string Date1 = "1";
-                                    string Date2 = "3";
-                                    string Amount = "10,000";
-                                    string _amountInWord = "Ten Thousand";
+                                    // Parse the date extracted from Excel (e.g. "8/13/2026")
+                                    if (!DateTime.TryParse(item.Date, CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate))
+                                    {
+                                        // fallback for common Excel date formats if the default parse fails
+                                        var formats = new[] { "M/d/yyyy", "MM/dd/yyyy", "d/M/yyyy", "dd/MM/yyyy", "yyyy-MM-dd" };
+                                        if (!DateTime.TryParseExact(item.Date, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                                        {
+                                            throw new Exception($"Invalid date format for employee '{item.EmployeeName}': '{item.Date}'");
+                                        }
+                                    }
+
+                                    var yearDigits = parsedDate.Year.ToString("D4");
+                                    var monthDigits = parsedDate.Month.ToString("D2");
+                                    var dayDigits = parsedDate.Day.ToString("D2");
+
+                                    string Year1 = yearDigits[0].ToString();
+                                    string Year2 = yearDigits[1].ToString();
+                                    string Year3 = yearDigits[2].ToString();
+                                    string Year4 = yearDigits[3].ToString();
+                                    string Month1 = monthDigits[0].ToString();
+                                    string Month2 = monthDigits[1].ToString();
+                                    string Date1 = dayDigits[0].ToString();
+                                    string Date2 = dayDigits[1].ToString();
+
+                                    // Parse the amount extracted from Excel (handles "10,000.00")
+                                    if (!decimal.TryParse(item.Amount, NumberStyles.Number, CultureInfo.InvariantCulture, out var amountDecimal))
+                                    {
+                                        throw new Exception($"Invalid amount for employee '{item.EmployeeName}': '{item.Amount}'");
+                                    }
+
+                                    string Amount = amountDecimal.ToString("N2", CultureInfo.InvariantCulture);
+                                    string _amountInWord = ConvertAmountToWords(amountDecimal);
                                     string _amountInWordSuffix = "Rupees Only";
 
                                     string mimetypeCheckPrint = "";
@@ -159,6 +182,63 @@ namespace ChequePrint.Repository.ChequePrint
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        private static readonly string[] _units = { "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                                        "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
+        private static readonly string[] _tens = { "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+
+        private static string ConvertAmountToWords(decimal amount)
+        {
+            var wholePart = (long)Math.Floor(amount);
+            var fractionalPart = (int)Math.Round((amount - wholePart) * 100);
+
+            var words = ConvertWholeNumberToWords(wholePart);
+
+            if (fractionalPart > 0)
+            {
+                words += $" and {ConvertWholeNumberToWords(fractionalPart)} Cents";
+            }
+
+            return words;
+        }
+
+        private static string ConvertWholeNumberToWords(long number)
+        {
+            if (number == 0) return "Zero";
+
+            var crore = number / 10000000;
+            number %= 10000000;
+            var lakh = number / 100000;
+            number %= 100000;
+            var thousand = number / 1000;
+            number %= 1000;
+            var hundred = number / 100;
+            var remainder = number % 100;
+
+            var sb = new StringBuilder();
+
+            if (crore > 0) sb.Append($"{ConvertWholeNumberToWords(crore)} Crore ");
+            if (lakh > 0) sb.Append($"{ConvertWholeNumberToWords(lakh)} Lakh ");
+            if (thousand > 0) sb.Append($"{ConvertWholeNumberToWords(thousand)} Thousand ");
+            if (hundred > 0) sb.Append($"{_units[hundred]} Hundred ");
+
+            if (remainder > 0)
+            {
+                if (sb.Length > 0) sb.Append("and ");
+
+                if (remainder < 20)
+                {
+                    sb.Append(_units[remainder]);
+                }
+                else
+                {
+                    sb.Append(_tens[remainder / 10]);
+                    if (remainder % 10 > 0) sb.Append($"-{_units[remainder % 10]}");
+                }
+            }
+
+            return sb.ToString().Trim();
         }
     }
 }
