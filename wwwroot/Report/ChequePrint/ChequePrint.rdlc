@@ -11,7 +11,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="dsCheckPrint">
+    <DataSet Name="dsChequePrint">
       <Query>
         <DataSourceName>dsChequePrint</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
@@ -92,7 +92,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!EmployeeName.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!EmployeeName.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -122,7 +122,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Amount.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!Amount.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -152,7 +152,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Date1.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!Date1.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -182,7 +182,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Date2.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!Date2.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -212,7 +212,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Month1.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!Month1.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -242,7 +242,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Year3.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!Year3.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -272,7 +272,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Year2.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!Year2.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -302,7 +302,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Year1.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!Year1.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -332,7 +332,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Month2.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!Month2.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -362,7 +362,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Year4.Value, "dsCheckPrint")</Value>
+                    <Value>=First(Fields!Year4.Value, "dsChequePrint")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
