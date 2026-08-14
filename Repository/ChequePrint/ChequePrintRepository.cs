@@ -135,7 +135,8 @@ namespace ChequePrint.Repository.ChequePrint
                                 string Date1 = dayDigits[0].ToString();
                                 string Date2 = dayDigits[1].ToString();
 
-                                if (!decimal.TryParse(item.Amount, NumberStyles.Number, CultureInfo.InvariantCulture, out var amountDecimal))
+                                var cleanAmount = item.Amount.Replace(",", "").Trim();
+                                if (!decimal.TryParse(cleanAmount, NumberStyles.Number, CultureInfo.InvariantCulture, out var amountDecimal))
                                 {
                                     throw new Exception($"Invalid amount for employee '{item.EmployeeName}': '{item.Amount}'");
                                 }
@@ -148,13 +149,13 @@ namespace ChequePrint.Repository.ChequePrint
                                 int extensionCheckPrint = 1;
 
                                 var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
-                                new CheckPrintDataSetDTO {
-                                    EmployeeName = $"{item.EmployeeName}",
-                                    Amount = $"{Amount}",
-                                    Year1 = $"{Year1}", Year2 = $"{Year2}", Year3 = $"{Year3}", Year4 = $"{Year4}",
-                                    Month1 = $"{Month1}", Month2 = $"{Month2}",
-                                    Date1 = $"{Date1}", Date2 = $"{Date2}",
-                                    AmountInWord = $"{_amountInWord} {_amountInWordSuffix}"
+                                    new CheckPrintDataSetDTO {
+                                        EmployeeName = $"{item.EmployeeName}",
+                                        Amount = $"{Amount}",
+                                        Year1 = $"{Year1}", Year2 = $"{Year2}", Year3 = $"{Year3}", Year4 = $"{Year4}",
+                                        Month1 = $"{Month1}", Month2 = $"{Month2}",
+                                        Date1 = $"{Date1}", Date2 = $"{Date2}",
+                                        AmountInWord = $"{_amountInWord} {_amountInWordSuffix}"
                                     }
                                 };
 
@@ -209,8 +210,9 @@ namespace ChequePrint.Repository.ChequePrint
         }
 
         private static readonly string[] _units = { "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-                                        "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
+                                            "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
         private static readonly string[] _tens = { "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
+        private static readonly string[] _scale = { "", "Thousand", "Million", "Billion", "Trillion" };
 
         private static string ConvertAmountToWords(decimal amount)
         {
@@ -231,38 +233,94 @@ namespace ChequePrint.Repository.ChequePrint
         {
             if (number == 0) return "Zero";
 
-            var crore = number / 10000000;
-            number %= 10000000;
-            var lakh = number / 100000;
-            number %= 100000;
-            var thousand = number / 1000;
-            number %= 1000;
-            var hundred = number / 100;
+            if (number < 0)
+            {
+                return "Negative " + ConvertWholeNumberToWords(Math.Abs(number));
+            }
+
+            var words = "";
+
+            int groupIndex = 0;
+            while (number > 0)
+            {
+                var group = (int)(number % 1000);
+                number /= 1000;
+
+                if (group > 0)
+                {
+                    var groupWords = ConvertGroupToWords(group);
+                    var scale = _scale[groupIndex];
+
+                    if (!string.IsNullOrEmpty(scale))
+                    {
+                        groupWords += " " + scale;
+                    }
+
+                    if (!string.IsNullOrEmpty(words))
+                    {
+                        if (number == 0 && group < 100)
+                        {
+                            groupWords = "and " + groupWords;
+                        }
+                        else
+                        {
+                            groupWords += " ";
+                        }
+                    }
+
+                    words = groupWords + words;
+                }
+
+                groupIndex++;
+            }
+
+            words = words.Replace("  ", " ").Trim();
+
+            // Capitalize first letter
+            if (!string.IsNullOrEmpty(words))
+            {
+                words = char.ToUpper(words[0]) + words.Substring(1);
+            }
+
+            return words;
+        }
+
+
+        private static string ConvertGroupToWords(int number)
+        {
+            if (number == 0) return "";
+
+            var words = "";
+
+            var hundreds = number / 100;
             var remainder = number % 100;
 
-            var sb = new StringBuilder();
-
-            if (crore > 0) sb.Append($"{ConvertWholeNumberToWords(crore)} Crore ");
-            if (lakh > 0) sb.Append($"{ConvertWholeNumberToWords(lakh)} Lakh ");
-            if (thousand > 0) sb.Append($"{ConvertWholeNumberToWords(thousand)} Thousand ");
-            if (hundred > 0) sb.Append($"{_units[hundred]} Hundred ");
-
-            if (remainder > 0)
+            if (hundreds > 0)
             {
-                if (sb.Length > 0) sb.Append("and ");
-
-                if (remainder < 20)
+                words += _units[hundreds] + " Hundred";
+                if (remainder > 0)
                 {
-                    sb.Append(_units[remainder]);
-                }
-                else
-                {
-                    sb.Append(_tens[remainder / 10]);
-                    if (remainder % 10 > 0) sb.Append($"-{_units[remainder % 10]}");
+                    words += " ";
                 }
             }
 
-            return sb.ToString().Trim();
+            if (remainder > 0)
+            {
+                if (remainder < 20)
+                {
+                    words += _units[remainder];
+                }
+                else
+                {
+                    words += _tens[remainder / 10];
+                    if (remainder % 10 > 0)
+                    {
+                        words += "-" + _units[remainder % 10];
+                    }
+                }
+            }
+
+            return words;
         }
     }
 }
