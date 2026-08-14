@@ -3,6 +3,7 @@ using ChequePrint.DTOs.ChequePrint;
 using ChequePrint.Interfaces.ChequePrint;
 using ClosedXML.Excel;
 using System.Globalization;
+using System.IO.Compression;
 using System.Text;
 using System.Transactions;
 
@@ -17,165 +18,188 @@ namespace ChequePrint.Repository.ChequePrint
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public async Task ChequePrintAttachmentUploadAsync(ChequePrintAttachmentUploadDTO model)
+        public async Task<(byte[] Content, string FileName)> ChequePrintAttachmentUploadAsync(ChequePrintAttachmentUploadDTO model)
         {
             try
             {
                 var transactionOptions = new TransactionOptions { Timeout = TimeSpan.FromMinutes(5), IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
                 using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    if (model.Files.Count > 0)
+                    if (model.Files.Count == 0)
+                    {
+                        throw new Exception("No file uploaded");
+                    }
+
+                    using var zipMemoryStream = new MemoryStream();
+                    using (var zipArchive = new ZipArchive(zipMemoryStream, ZipArchiveMode.Create, leaveOpen: true))
                     {
                         foreach (var file in model.Files)
                         {
-                            if (file != null)
+                            if (file == null) continue;
+
+                            var basePathInProj = Path.Combine(_hostingEnvironment.WebRootPath, "AdminRequestFileUpload");
+                            if (!Directory.Exists(basePathInProj)) Directory.CreateDirectory(basePathInProj);
+
+                            var fileName = Path.GetFileName(file.FileName);
+                            var extension = Path.GetExtension(file.FileName);
+
+                            if (extension != ".xls" && extension != ".xlsx")
                             {
-                                var lastRow = 0;
+                                throw new Exception("Invalid Template");
+                            }
 
-                                var basePathInProj = Path.Combine(_hostingEnvironment.WebRootPath, "AdminRequestFileUpload");
-                                bool basePathExists = Directory.Exists(basePathInProj);
-                                if (!basePathExists) Directory.CreateDirectory(basePathInProj);
+                            var filePath = Path.Combine(basePathInProj, $"{fileName}{extension}");
 
-                                var fileName = Path.GetFileName(file.FileName);
-                                var extension = Path.GetExtension(file.FileName);
-
-                                if (extension != ".xls" && extension != ".xlsx")
+                            if (!File.Exists(filePath))
+                            {
+                                using (var stream = new FileStream(filePath, FileMode.Create))
                                 {
-                                    throw new Exception("Invalid Template");
+                                    await file.CopyToAsync(stream);
                                 }
+                            }
 
-                                var fileNameString = $"{fileName}{extension}";
-                                var filePath = Path.Combine(basePathInProj, fileNameString);
+                            // Read excel
+                            using var wbook = new XLWorkbook(filePath);
+                            IXLWorksheet worksheet = wbook.Worksheet(1);
+                            var ws = wbook.Worksheet(worksheet.Name);
 
-                                if (!File.Exists(basePathInProj))
+                            var TempHeader = "Employee NameDateAmount";
+                            var CreateTempHeader = "";
+                            bool FirstRow = true;
+                            string readRange = "1:1";
+
+                            foreach (IXLRow row in ws.RowsUsed())
+                            {
+                                if (FirstRow)
                                 {
-                                    using (var stream = new FileStream(filePath, FileMode.Create))
+                                    readRange = string.Format("{0}:{1}", 1, row.LastCellUsed().Address.ColumnNumber);
+                                    foreach (IXLCell cell in row.Cells(readRange))
                                     {
-                                        await file.CopyToAsync(stream);
+                                        CreateTempHeader += cell.Value.ToString().Trim();
+                                    }
+                                    FirstRow = false;
+                                }
+                            }
+
+                            if (TempHeader != CreateTempHeader)
+                            {
+                                throw new Exception("Invalid Template");
+                            }
+
+                            var lastRowUsed = ws.LastRowUsed();
+                            var lastRow = lastRowUsed.RowNumber();
+
+                            if (lastRow < 2)
+                            {
+                                throw new Exception("There is no records in the uploaded file");
+                            }
+
+                            var _checkPrintDataList = new List<CheckPrintDataDTO>();
+                            for (var i = 2; i <= lastRow; i++)
+                            {
+                                var _employeeName = ws.Cell($"A{i}").GetValue<string>().Trim();
+                                var _date = ws.Cell($"B{i}").GetValue<string>().Trim();
+                                var _amount = ws.Cell($"C{i}").GetValue<string>().Trim();
+
+                                _checkPrintDataList.Add(new CheckPrintDataDTO
+                                {
+                                    EmployeeName = _employeeName,
+                                    Date = _date,
+                                    Amount = _amount
+                                });
+                            }
+
+                            var usedFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+                            foreach (var item in _checkPrintDataList)
+                            {
+                                // Parse the date extracted from Excel (e.g. "8/13/2026")
+                                if (!DateTime.TryParse(item.Date, CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate))
+                                {
+                                    var formats = new[] { "M/d/yyyy", "MM/dd/yyyy", "d/M/yyyy", "dd/MM/yyyy", "yyyy-MM-dd" };
+                                    if (!DateTime.TryParseExact(item.Date, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
+                                    {
+                                        throw new Exception($"Invalid date format for employee '{item.EmployeeName}': '{item.Date}'");
                                     }
                                 }
 
-                                // Read excel
-                                using var wbook = new XLWorkbook($"{basePathInProj}/{fileName}{extension}");
-                                IXLWorksheet worksheet = wbook.Worksheet(1);
-                                var ws = wbook.Worksheet(worksheet.Name);
+                                var yearDigits = parsedDate.Year.ToString("D4");
+                                var monthDigits = parsedDate.Month.ToString("D2");
+                                var dayDigits = parsedDate.Day.ToString("D2");
 
-                                var TempHeader = "Employee NameDateAmount";
-                                var CreateTempHeader = "";
+                                string Year1 = yearDigits[0].ToString();
+                                string Year2 = yearDigits[1].ToString();
+                                string Year3 = yearDigits[2].ToString();
+                                string Year4 = yearDigits[3].ToString();
+                                string Month1 = monthDigits[0].ToString();
+                                string Month2 = monthDigits[1].ToString();
+                                string Date1 = dayDigits[0].ToString();
+                                string Date2 = dayDigits[1].ToString();
 
-                                bool FirstRow = true;
-                                string readRange = "1:1";
-                                foreach (IXLRow row in ws.RowsUsed())
+                                // Parse the amount extracted from Excel (handles "10,000.00")
+                                if (!decimal.TryParse(item.Amount, NumberStyles.Number, CultureInfo.InvariantCulture, out var amountDecimal))
                                 {
-                                    if (FirstRow)
-                                    {
-                                        readRange = string.Format("{0}:{1}", 1, row.LastCellUsed().Address.ColumnNumber);
-                                        foreach (IXLCell cell in row.Cells(readRange))
-                                        {
-                                            CreateTempHeader += cell.Value.ToString().Trim();
-                                        }
-                                        FirstRow = false;
-                                    }
+                                    throw new Exception($"Invalid amount for employee '{item.EmployeeName}': '{item.Amount}'");
                                 }
 
-                                if (TempHeader != CreateTempHeader)
+                                string Amount = amountDecimal.ToString("N2", CultureInfo.InvariantCulture);
+                                string _amountInWord = ConvertAmountToWords(amountDecimal);
+                                string _amountInWordSuffix = "Rupees Only";
+
+                                string mimetypeCheckPrint = "";
+                                int extensionCheckPrint = 1;
+
+                                var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
+                            new CheckPrintDataSetDTO {
+                                EmployeeName = $"{item.EmployeeName}",
+                                Amount = $"{Amount}",
+                                Year1 = $"{Year1}", Year2 = $"{Year2}", Year3 = $"{Year3}", Year4 = $"{Year4}",
+                                Month1 = $"{Month1}", Month2 = $"{Month2}",
+                                Date1 = $"{Date1}", Date2 = $"{Date2}",
+                                AmountInWord = $"{_amountInWord} {_amountInWordSuffix}"
+                            }
+                        };
+
+                                var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
+
+                                Dictionary<string, string> para = new Dictionary<string, string>();
+                                para.Add("prm", "RDLC Report");
+
+                                LocalReport rpt = new LocalReport(reportRdlcPath);
+                                rpt.AddDataSource("dsChequePrint", checkPrintLetterDetail);
+
+                                var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
+
+                                // Build a unique, safe file name per employee for inside the zip
+                                var safeEmployeeName = string.Join("_", item.EmployeeName.Split(Path.GetInvalidFileNameChars()));
+                                var pdfEntryName = $"{safeEmployeeName} - LOFIN Fund Transfer Letter.pdf";
+
+                                var counter = 1;
+                                var uniqueEntryName = pdfEntryName;
+                                while (!usedFileNames.Add(uniqueEntryName))
                                 {
-                                    throw new Exception("Invalid Template");
+                                    uniqueEntryName = $"{safeEmployeeName} - LOFIN Fund Transfer Letter ({counter}).pdf";
+                                    counter++;
                                 }
 
-                                var lastRowUsed = ws.LastRowUsed();
-                                lastRow = lastRowUsed.RowNumber();
-
-                                if (lastRow < 2)
+                                var zipEntry = zipArchive.CreateEntry(uniqueEntryName, CompressionLevel.Optimal);
+                                using (var entryStream = zipEntry.Open())
                                 {
-                                    throw new Exception("There is no records in the uploaded file");
+                                    await entryStream.WriteAsync(reportResultLetter.MainStream, 0, reportResultLetter.MainStream.Length);
                                 }
+                            }
 
-                                var _checkPrintDataList = new List<CheckPrintDataDTO>();
-                                for (var i = 2; i <= lastRow; i++)
-                                {
-                                    var _employeeName = ws.Cell($"A{i}").GetValue<string>().Trim();
-                                    var _date = ws.Cell($"B{i}").GetValue<string>().Trim();
-                                    var _amount = ws.Cell($"C{i}").GetValue<string>().Trim();
-
-                                    var _checkPrintData = new CheckPrintDataDTO();
-                                    _checkPrintData.EmployeeName = _employeeName;
-                                    _checkPrintData.Date = _date;
-                                    _checkPrintData.Amount = _amount;
-
-                                    _checkPrintDataList.Add(_checkPrintData);
-                                }
-
-                                foreach (var item in _checkPrintDataList)
-                                {
-                                    // Parse the date extracted from Excel (e.g. "8/13/2026")
-                                    if (!DateTime.TryParse(item.Date, CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate))
-                                    {
-                                        // fallback for common Excel date formats if the default parse fails
-                                        var formats = new[] { "M/d/yyyy", "MM/dd/yyyy", "d/M/yyyy", "dd/MM/yyyy", "yyyy-MM-dd" };
-                                        if (!DateTime.TryParseExact(item.Date, formats, CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedDate))
-                                        {
-                                            throw new Exception($"Invalid date format for employee '{item.EmployeeName}': '{item.Date}'");
-                                        }
-                                    }
-
-                                    var yearDigits = parsedDate.Year.ToString("D4");
-                                    var monthDigits = parsedDate.Month.ToString("D2");
-                                    var dayDigits = parsedDate.Day.ToString("D2");
-
-                                    string Year1 = yearDigits[0].ToString();
-                                    string Year2 = yearDigits[1].ToString();
-                                    string Year3 = yearDigits[2].ToString();
-                                    string Year4 = yearDigits[3].ToString();
-                                    string Month1 = monthDigits[0].ToString();
-                                    string Month2 = monthDigits[1].ToString();
-                                    string Date1 = dayDigits[0].ToString();
-                                    string Date2 = dayDigits[1].ToString();
-
-                                    // Parse the amount extracted from Excel (handles "10,000.00")
-                                    if (!decimal.TryParse(item.Amount, NumberStyles.Number, CultureInfo.InvariantCulture, out var amountDecimal))
-                                    {
-                                        throw new Exception($"Invalid amount for employee '{item.EmployeeName}': '{item.Amount}'");
-                                    }
-
-                                    string Amount = amountDecimal.ToString("N2", CultureInfo.InvariantCulture);
-                                    string _amountInWord = ConvertAmountToWords(amountDecimal);
-                                    string _amountInWordSuffix = "Rupees Only";
-
-                                    string mimetypeCheckPrint = "";
-                                    int extensionCheckPrint = 1;
-
-                                    var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> { new CheckPrintDataSetDTO { EmployeeName = $"{item.EmployeeName}", Amount = $"{Amount}", Year1 = $"{Year1}", Year2 = $"{Year2}", Year3 = $"{Year3}", Year4 = $"{Year4}", Month1 = $"{Month1}", Month2 = $"{Month2}", Date1 = $"{Date1}", Date2 = $"{Date2}", AmountInWord = $"{_amountInWord} {_amountInWordSuffix}" } };
-                                    // RDLC Report Path
-                                    var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
-
-                                    Dictionary<string, string> para = new Dictionary<string, string>();
-                                    para.Add("prm", "RDLC Report");
-
-                                    // Create LocalReport object and add data source
-                                    LocalReport rpt = new LocalReport(reportRdlcPath);
-                                    rpt.AddDataSource("dsChequePrint", checkPrintLetterDetail);
-
-                                    // Render the report as PDF
-                                    var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
-
-                                    // File name and save path
-                                    string fileNameLetter = "LOFIN Fund Transfer Letter.pdf";
-                                    var savePathLetter = $"{_hostingEnvironment.WebRootPath}\\ReportGenerate\\{fileNameLetter}";
-
-                                    // Save the PDF file
-                                    await System.IO.File.WriteAllBytesAsync(savePathLetter, reportResultLetter.MainStream);
-                                }
-
-                                if (System.IO.File.Exists(filePath))
-                                {
-                                    System.IO.File.Delete(filePath);
-                                }
-
-                                transactionScope.Complete();
+                            if (File.Exists(filePath))
+                            {
+                                File.Delete(filePath);
                             }
                         }
                     }
+
+                    transactionScope.Complete();
+
+                    var zipFileName = $"ChequePrintLetters_{DateTime.Now:yyyyMMdd_HHmmss}.zip";
+                    return (zipMemoryStream.ToArray(), zipFileName);
                 }
             }
             catch (Exception ex)

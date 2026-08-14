@@ -4,6 +4,6 @@ namespace ChequePrint.Interfaces.ChequePrint
 {
     public interface IChequePrintRepository
     {
-        Task ChequePrintAttachmentUploadAsync(ChequePrintAttachmentUploadDTO model);
+        Task<(byte[] Content, string FileName)> ChequePrintAttachmentUploadAsync(ChequePrintAttachmentUploadDTO model);
     }
 }

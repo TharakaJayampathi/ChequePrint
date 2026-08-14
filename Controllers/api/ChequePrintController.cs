@@ -21,8 +21,8 @@ namespace ChequePrint.Controllers.api
         {
             try
             {
-                await _chequePrintRepository.ChequePrintAttachmentUploadAsync(model);
-                return Ok();
+                var (content, fileName) = await _chequePrintRepository.ChequePrintAttachmentUploadAsync(model);
+                return File(content, "application/zip", fileName);
             }
             catch (Exception ex)
             {
