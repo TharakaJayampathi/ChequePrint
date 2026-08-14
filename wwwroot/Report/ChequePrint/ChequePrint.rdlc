@@ -406,7 +406,7 @@
                     <Value>=First(Fields!AmountInWord.Value, "dsChequePrint")</Value>
                     <Style>
                       <FontStyle>Italic</FontStyle>
-                      <FontSize>14pt</FontSize>
+                      <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
