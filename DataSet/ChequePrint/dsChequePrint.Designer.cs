@@ -301,6 +301,8 @@ namespace ChequePrint.DataSet.ChequePrint {
             
             private global::System.Data.DataColumn columnDate2;
             
+            private global::System.Data.DataColumn columnAmontValue;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public ChequePrintDataTable() {
@@ -418,6 +420,14 @@ namespace ChequePrint.DataSet.ChequePrint {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn AmontValueColumn {
+                get {
+                    return this.columnAmontValue;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -453,7 +463,7 @@ namespace ChequePrint.DataSet.ChequePrint {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public ChequePrintRow AddChequePrintRow(string EmployeeName, string Amount, string Year1, string Year2, string Year3, string Year4, string Month1, string Month2, string Date1, string Date2) {
+            public ChequePrintRow AddChequePrintRow(string EmployeeName, string Amount, string Year1, string Year2, string Year3, string Year4, string Month1, string Month2, string Date1, string Date2, string AmontValue) {
                 ChequePrintRow rowChequePrintRow = ((ChequePrintRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         EmployeeName,
@@ -465,7 +475,8 @@ namespace ChequePrint.DataSet.ChequePrint {
                         Month1,
                         Month2,
                         Date1,
-                        Date2};
+                        Date2,
+                        AmontValue};
                 rowChequePrintRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowChequePrintRow);
                 return rowChequePrintRow;
@@ -498,6 +509,7 @@ namespace ChequePrint.DataSet.ChequePrint {
                 this.columnMonth2 = base.Columns["Month2"];
                 this.columnDate1 = base.Columns["Date1"];
                 this.columnDate2 = base.Columns["Date2"];
+                this.columnAmontValue = base.Columns["AmontValue"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -523,6 +535,8 @@ namespace ChequePrint.DataSet.ChequePrint {
                 base.Columns.Add(this.columnDate1);
                 this.columnDate2 = new global::System.Data.DataColumn("Date2", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDate2);
+                this.columnAmontValue = new global::System.Data.DataColumn("AmontValue", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAmontValue);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -825,6 +839,22 @@ namespace ChequePrint.DataSet.ChequePrint {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string AmontValue {
+                get {
+                    try {
+                        return ((string)(this[this.tableChequePrint.AmontValueColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'AmontValue\' in table \'ChequePrint\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableChequePrint.AmontValueColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsEmployeeNameNull() {
                 return this.IsNull(this.tableChequePrint.EmployeeNameColumn);
             }
@@ -941,6 +971,18 @@ namespace ChequePrint.DataSet.ChequePrint {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetDate2Null() {
                 this[this.tableChequePrint.Date2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsAmontValueNull() {
+                return this.IsNull(this.tableChequePrint.AmontValueColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetAmontValueNull() {
+                this[this.tableChequePrint.AmontValueColumn] = global::System.Convert.DBNull;
             }
         }
         
