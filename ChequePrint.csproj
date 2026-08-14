@@ -42,6 +42,7 @@
 		<PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
 		<PackageReference Include="System.Security.Permissions" Version="7.0.0" />
 		<PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -63,6 +64,10 @@
 		<Content Update="wwwroot\Report\ChequePrint\ChequePrint.rdlc">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\ReportGenerate\" />
 	</ItemGroup>
 
 </Project>
