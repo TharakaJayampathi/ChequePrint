@@ -76,8 +76,8 @@
             <Source>Embedded</Source>
             <Value>cheue_template_v1</Value>
             <Sizing>FitProportional</Sizing>
-            <Height>2.56887in</Height>
-            <Width>6.09796in</Width>
+            <Height>3.21887in</Height>
+            <Width>7.94167in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -160,7 +160,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.17628in</Top>
-            <Left>6.51882in</Left>
+            <Left>5.76882in</Left>
             <Height>0.38in</Height>
             <Width>0.20121in</Width>
             <ZIndex>3</ZIndex>
@@ -190,7 +190,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.30128in</Top>
-            <Left>6.78947in</Left>
+            <Left>6.03947in</Left>
             <Height>0.13833in</Height>
             <Width>0.09288in</Width>
             <ZIndex>4</ZIndex>
@@ -220,7 +220,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.30128in</Top>
-            <Left>6.93791in</Left>
+            <Left>6.18791in</Left>
             <Height>0.13833in</Height>
             <Width>0.09288in</Width>
             <ZIndex>5</ZIndex>
@@ -250,7 +250,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.30128in</Top>
-            <Left>7.76776in</Left>
+            <Left>7.01776in</Left>
             <Height>0.13833in</Height>
             <Width>0.09288in</Width>
             <ZIndex>6</ZIndex>
@@ -280,7 +280,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.30128in</Top>
-            <Left>7.63321in</Left>
+            <Left>6.88321in</Left>
             <Height>0.13833in</Height>
             <Width>0.09288in</Width>
             <ZIndex>7</ZIndex>
@@ -310,7 +310,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.30128in</Top>
-            <Left>7.46811in</Left>
+            <Left>6.71811in</Left>
             <Height>0.13833in</Height>
             <Width>0.09288in</Width>
             <ZIndex>8</ZIndex>
@@ -340,7 +340,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.30128in</Top>
-            <Left>7.21134in</Left>
+            <Left>6.46134in</Left>
             <Height>0.13833in</Height>
             <Width>0.09288in</Width>
             <ZIndex>9</ZIndex>
@@ -370,7 +370,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.30128in</Top>
-            <Left>8.05508in</Left>
+            <Left>7.30508in</Left>
             <Height>0.13833in</Height>
             <Width>0.09288in</Width>
             <ZIndex>10</ZIndex>
@@ -388,12 +388,14 @@
         <Height>3.21887in</Height>
         <Style />
       </Body>
-      <Width>8.14796in</Width>
+      <Width>7.94167in</Width>
       <Page>
-        <LeftMargin>1in</LeftMargin>
-        <RightMargin>1in</RightMargin>
-        <TopMargin>1in</TopMargin>
-        <BottomMargin>1in</BottomMargin>
+        <PageHeight>8.5in</PageHeight>
+        <PageWidth>11in</PageWidth>
+        <LeftMargin>0.5in</LeftMargin>
+        <RightMargin>0.5in</RightMargin>
+        <TopMargin>0.5in</TopMargin>
+        <BottomMargin>0.5in</BottomMargin>
         <Style />
       </Page>
     </ReportSection>
