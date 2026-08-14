@@ -107,10 +107,22 @@ namespace ChequePrint.Repository.ChequePrint
 
                                 foreach (var item in _checkPrintDataList)
                                 {
+                                    string Year1 = "2";
+                                    string Year2 = "0";
+                                    string Year3 = "2";
+                                    string Year4 = "6";
+                                    string Month1 = "0";
+                                    string Month2 = "8";
+                                    string Date1 = "1";
+                                    string Date2 = "3";
+                                    string Amount = "10,000";
+                                    string _amountInWord = "Ten Thousand";
+                                    string _amountInWordSuffix = "Rupees Only";
+
                                     string mimetypeCheckPrint = "";
                                     int extensionCheckPrint = 1;
 
-                                    var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> { new CheckPrintDataSetDTO { EmployeeName = $"{item.EmployeeName}", Amount = $"{item.Amount}", Year1 = $"{2}", Year2 = $"{0}", Year3 = $"{2}", Year4 = $"{6}", Month1 = $"{0}", Month2 = $"{8}", Date1 = $"{1}", Date2 = $"{3}", AmountInWord = "Ten Thousand Rupees Only" } };
+                                    var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> { new CheckPrintDataSetDTO { EmployeeName = $"{item.EmployeeName}", Amount = $"{Amount}", Year1 = $"{Year1}", Year2 = $"{Year2}", Year3 = $"{Year3}", Year4 = $"{Year4}", Month1 = $"{Month1}", Month2 = $"{Month2}", Date1 = $"{Date1}", Date2 = $"{Date2}", AmountInWord = $"{_amountInWord} {_amountInWordSuffix}" } };
                                     // RDLC Report Path
                                     var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
 
