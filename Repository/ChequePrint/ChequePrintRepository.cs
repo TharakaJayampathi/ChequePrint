@@ -3,6 +3,7 @@ using ChequePrint.DTOs.ChequePrint;
 using ChequePrint.Interfaces.ChequePrint;
 using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Transactions;
@@ -93,7 +94,7 @@ namespace ChequePrint.Repository.ChequePrint
                                     throw new Exception("There is no records in the uploaded file");
                                 }
 
-                                var _checkPrintDataList = new List<CheckPrintDataSetDTO>();
+                                var _checkPrintDataList = new List<CheckPrintDataDTO>();
                                 for (var i = 2; i <= lastRow; i++)
                                 {
                                     var _employeeName = ws.Cell($"A{i}").GetValue<string>().Trim();
@@ -101,7 +102,7 @@ namespace ChequePrint.Repository.ChequePrint
                                     var _amountDecimal = Convert.ToDecimal(0.0);
                                     var _amount = ws.Cell($"C{i}").GetValue<string>();
 
-                                    var _checkPrintData = new CheckPrintDataSetDTO();
+                                    var _checkPrintData = new CheckPrintDataDTO();
                                     _checkPrintData.EmployeeName = _employeeName;
                                     _checkPrintData.Date = _date;
                                     _checkPrintData.Amount = _amount;
@@ -111,15 +112,29 @@ namespace ChequePrint.Repository.ChequePrint
 
                                 foreach (var item in _checkPrintDataList)
                                 {
-                                    #region Attach Excel File
-                                    string mimetype = "";
+                                    string mimetypeCheckPrint = "";
+                                    int extensionCheckPrint = 1;
 
+                                    var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> { new CheckPrintDataSetDTO { EmployeeName = $"{item.EmployeeName}", Amount = $"{item.Amount}", Year1 = $"{2}", Year2 = $"{0}", Year3 = $"{2}", Year4 = $"{6}", Month1 = $"{0}", Month2 = $"{8}" } };
                                     // RDLC Report Path
                                     var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
 
-                                    Dictionary<string, string> parameters = new Dictionary<string, string>();
-                                    parameters.Add("prm", "RDLC Report");
-                                    #endregion
+                                    Dictionary<string, string> para = new Dictionary<string, string>();
+                                    para.Add("prm", "RDLC Report");
+
+                                    // Create LocalReport object and add data source
+                                    LocalReport rpt = new LocalReport(reportRdlcPath);
+                                    rpt.AddDataSource("dsChequePrint", checkPrintLetterDetail);
+
+                                    // Render the report as PDF
+                                    var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
+
+                                    // File name and save path
+                                    string fileNameLetter = "LOFIN Fund Transfer Letter.pdf";
+                                    var savePathLetter = $"{_hostingEnvironment.WebRootPath}\\ReportGenerate\\{fileNameLetter}";
+
+                                    // Save the PDF file
+                                    await System.IO.File.WriteAllBytesAsync(savePathLetter, reportResultLetter.MainStream);
                                 }
 
                                 if (System.IO.File.Exists(filePath))
