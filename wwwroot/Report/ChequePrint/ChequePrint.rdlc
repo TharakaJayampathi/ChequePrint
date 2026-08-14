@@ -98,7 +98,7 @@
                     <Value>=First(Fields!EmployeeName.Value, "dsChequePrint")</Value>
                     <Style>
                       <FontStyle>Italic</FontStyle>
-                      <FontSize>14pt</FontSize>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -416,9 +416,9 @@
             </Paragraphs>
             <rd:DefaultName>Textbox11</rd:DefaultName>
             <Top>1.4161in</Top>
-            <Left>1.45417in</Left>
+            <Left>1.32917in</Left>
             <Height>0.25in</Height>
-            <Width>6.79905in</Width>
+            <Width>7.87712in</Width>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>
