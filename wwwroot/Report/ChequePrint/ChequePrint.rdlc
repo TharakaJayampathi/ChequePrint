@@ -76,9 +76,8 @@
             <Source>Embedded</Source>
             <Value>cheue_template_v1</Value>
             <Sizing>FitProportional</Sizing>
-            <Left>0.12821in</Left>
-            <Height>2.51667in</Height>
-            <Width>8.08333in</Width>
+            <Height>3.56887in</Height>
+            <Width>8.97821in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -100,8 +99,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.51333in</Top>
-            <Left>0.89488in</Left>
+            <Top>0.76333in</Top>
+            <Left>1.01988in</Left>
             <Height>0.25in</Height>
             <Width>3.84167in</Width>
             <ZIndex>1</ZIndex>
@@ -130,8 +129,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.83278in</Top>
-            <Left>1.03655in</Left>
+            <Top>1.20778in</Top>
+            <Left>1.28655in</Left>
             <Height>0.20833in</Height>
             <Width>3.31667in</Width>
             <ZIndex>2</ZIndex>
@@ -386,7 +385,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>4.66054in</Height>
+        <Height>3.57721in</Height>
         <Style />
       </Body>
       <Width>8.97821in</Width>

@@ -2,12 +2,7 @@
 using ChequePrint.DTOs.ChequePrint;
 using ChequePrint.Interfaces.ChequePrint;
 using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using System.Net.Mail;
-using System.Security.Claims;
 using System.Transactions;
-using System.Xml;
 
 namespace ChequePrint.Repository.ChequePrint
 {
