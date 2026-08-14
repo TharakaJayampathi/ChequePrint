@@ -76,8 +76,8 @@
             <Source>Embedded</Source>
             <Value>cheue_template_v1</Value>
             <Sizing>FitProportional</Sizing>
-            <Height>3.21887in</Height>
-            <Width>7.94167in</Width>
+            <Height>4.01054in</Height>
+            <Width>9.51667in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -385,10 +385,10 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>3.21887in</Height>
+        <Height>4.01054in</Height>
         <Style />
       </Body>
-      <Width>7.94167in</Width>
+      <Width>9.51667in</Width>
       <Page>
         <PageHeight>8.5in</PageHeight>
         <PageWidth>11in</PageWidth>
