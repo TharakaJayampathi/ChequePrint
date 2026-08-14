@@ -24,7 +24,7 @@
         },
         success: function (blob, status, xhr) {
             var disposition = xhr.getResponseHeader('Content-Disposition');
-            var fileName = 'ChequePrintLetters.zip';
+            var fileName = 'ChequePrint.zip';
             if (disposition && disposition.indexOf('filename=') !== -1) {
                 var match = disposition.match(/filename\*?=(?:UTF-8'')?["']?([^"';]+)["']?/i);
                 if (match && match[1]) {
@@ -41,7 +41,7 @@
             a.remove();
             window.URL.revokeObjectURL(downloadUrl);
 
-            toastr.success("Cheque print letters generated successfully!");
+            toastr.success("Cheque Print generated successfully!");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.responseText) {

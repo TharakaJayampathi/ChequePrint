@@ -155,8 +155,8 @@ namespace ChequePrint.Repository.ChequePrint
                                     Month1 = $"{Month1}", Month2 = $"{Month2}",
                                     Date1 = $"{Date1}", Date2 = $"{Date2}",
                                     AmountInWord = $"{_amountInWord} {_amountInWordSuffix}"
-                                }
-                            };
+                                    }
+                                };
 
                                 var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
 
@@ -169,13 +169,13 @@ namespace ChequePrint.Repository.ChequePrint
                                 var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
 
                                 var safeEmployeeName = string.Join("_", item.EmployeeName.Split(Path.GetInvalidFileNameChars()));
-                                var pdfEntryName = $"{safeEmployeeName} - LOFIN Fund Transfer Letter.pdf";
+                                var pdfEntryName = $"{safeEmployeeName} - Cheque Print.pdf";
 
                                 var counter = 1;
                                 var uniqueEntryName = pdfEntryName;
                                 while (!usedFileNames.Add(uniqueEntryName))
                                 {
-                                    uniqueEntryName = $"{safeEmployeeName} - LOFIN Fund Transfer Letter ({counter}).pdf";
+                                    uniqueEntryName = $"{safeEmployeeName} - Cheque Print ({counter}).pdf";
                                     counter++;
                                 }
 
@@ -195,7 +195,7 @@ namespace ChequePrint.Repository.ChequePrint
 
                     transactionScope.Complete();
 
-                    var zipFileName = $"ChequePrintLetters_{DateTime.Now:yyyyMMdd_HHmmss}.zip";
+                    var zipFileName = $"Cheque_Print_{DateTime.Now:yyyyMMdd_HHmmss}.zip";
                     return (zipMemoryStream.ToArray(), zipFileName);
                 }
             }
