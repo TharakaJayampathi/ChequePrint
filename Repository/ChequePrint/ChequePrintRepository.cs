@@ -115,7 +115,7 @@ namespace ChequePrint.Repository.ChequePrint
                                     string mimetypeCheckPrint = "";
                                     int extensionCheckPrint = 1;
 
-                                    var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> { new CheckPrintDataSetDTO { EmployeeName = $"{item.EmployeeName}", Amount = $"{item.Amount}", Year1 = $"{2}", Year2 = $"{0}", Year3 = $"{2}", Year4 = $"{6}", Month1 = $"{0}", Month2 = $"{8}" } };
+                                    var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> { new CheckPrintDataSetDTO { EmployeeName = $"{item.EmployeeName}", Amount = $"{item.Amount}", Year1 = $"{2}", Year2 = $"{0}", Year3 = $"{2}", Year4 = $"{6}", Month1 = $"{0}", Month2 = $"{8}", Date1 = $"{1}", Date2 = $"{3}" } };
                                     // RDLC Report Path
                                     var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
 
