@@ -169,13 +169,16 @@ namespace ChequePrint.Repository.ChequePrint
                                 var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
 
                                 var safeEmployeeName = string.Join("_", item.EmployeeName.Split(Path.GetInvalidFileNameChars()));
-                                var pdfEntryName = $"{safeEmployeeName} - Cheque Print.pdf";
+                                var dateForFileName = parsedDate.ToString("yyyy_MM_dd");
+                                var uniqueTimestamp = DateTime.Now.Ticks.ToString().Substring(DateTime.Now.Ticks.ToString().Length - 6);
+
+                                var pdfEntryName = $"{safeEmployeeName}_{dateForFileName}_{uniqueTimestamp}.pdf";
 
                                 var counter = 1;
                                 var uniqueEntryName = pdfEntryName;
                                 while (!usedFileNames.Add(uniqueEntryName))
                                 {
-                                    uniqueEntryName = $"{safeEmployeeName} - Cheque Print ({counter}).pdf";
+                                    uniqueEntryName = $"{safeEmployeeName}_{dateForFileName}_{uniqueTimestamp}_{counter}.pdf";
                                     counter++;
                                 }
 
