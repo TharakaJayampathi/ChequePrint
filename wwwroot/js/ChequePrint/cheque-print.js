@@ -2,7 +2,7 @@
     var input = document.getElementById("txtAttachment");
     var formData = new FormData();
     if (!input.files || input.files.length === 0) {
-        toastr.error("No file selected.");
+        toastr.error("", "No file selected", { progressBar: true });
         return;
     }
     $('#btnText').hide();
@@ -41,32 +41,32 @@
             a.remove();
             window.URL.revokeObjectURL(downloadUrl);
 
-            toastr.success("Cheque Print generated successfully!");
+            toastr.success("", "Cheque Print generated successfully", { progressBar: true });
         },
         error: function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.responseText) {
                 try {
                     var errJson = JSON.parse(jqXHR.responseText);
-                    toastr.error(errJson.message || "Something went wrong.");
+                    toastr.error("", errJson.message || "Something went wrong", { progressBar: true });
                 } catch (e) {
-                    toastr.error("Something went wrong.");
+                    toastr.error("", "Something went wrong", { progressBar: true });
                 }
             } else if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
-                toastr.error(jqXHR.responseJSON.message);
+                toastr.error("", jqXHR.responseJSON.message, { progressBar: true });
             } else {
                 if (jqXHR.response instanceof Blob) {
                     var reader = new FileReader();
                     reader.onload = function () {
                         try {
                             var errJson = JSON.parse(reader.result);
-                            toastr.error(errJson.message || "Something went wrong.");
+                            toastr.error("", errJson.message || "Something went wrong", { progressBar: true });
                         } catch (e) {
-                            toastr.error("Something went wrong.");
+                            toastr.error("", "Something went wrong", { progressBar: true });
                         }
                     };
                     reader.readAsText(jqXHR.response);
                 } else {
-                    toastr.error("Something went wrong.");
+                    toastr.error("", "Something went wrong", { progressBar: true });
                 }
             }
         },
