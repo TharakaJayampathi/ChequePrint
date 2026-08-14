@@ -27,7 +27,7 @@
                 padding: 20px;
                 position: relative;
                 overflow: hidden;
-                background: #0a1628;
+                background: #1a0a2e;
             }
 
             /* Background Image - Using cheque_print_v2.png */
@@ -100,16 +100,16 @@
 
                 .welcome-header h1 {
                     font-size: 38px;
-                    color: #1a2a6c;
+                    color: #4a1a6c;
                     font-weight: 700;
                     letter-spacing: 2px;
                     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                 }
 
                     .welcome-header h1 span {
-                        color: #0d1b4a;
+                        color: #2d0b4a;
                         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                        -webkit-text-fill-color: #0d1b4a;
+                        -webkit-text-fill-color: #2d0b4a;
                     }
 
             /* Image Container - Using cheque_print_v1.png */
@@ -137,7 +137,7 @@
             .btn-primary {
                 width: 100%;
                 padding: 14px;
-                background: linear-gradient(135deg, #0d1b4a 0%, #1a2a6c 100%);
+                background: linear-gradient(135deg, #4a1a6c 0%, #7c2dae 100%);
                 border: none;
                 border-radius: 14px;
                 color: white;
@@ -149,7 +149,7 @@
                 letter-spacing: 1px;
                 position: relative;
                 overflow: hidden;
-                box-shadow: 0 8px 30px rgba(26, 42, 108, 0.4);
+                box-shadow: 0 8px 30px rgba(74, 26, 108, 0.4);
             }
 
                 .btn-primary::before {
@@ -169,8 +169,8 @@
 
                 .btn-primary:hover {
                     transform: translateY(-3px);
-                    box-shadow: 0 12px 40px rgba(26, 42, 108, 0.6);
-                    background: linear-gradient(135deg, #1a2a6c 0%, #2d4373 100%);
+                    box-shadow: 0 12px 40px rgba(74, 26, 108, 0.6);
+                    background: linear-gradient(135deg, #5a2a7c 0%, #8c3dbe 100%);
                 }
 
                 .btn-primary:active {
@@ -202,7 +202,7 @@
             .alert-warning {
                 background: rgba(255, 243, 205, 0.9);
                 border: 1px solid rgba(255, 238, 186, 0.9);
-                color: #0d1b4a;
+                color: #4a1a6c;
                 padding: 12px;
                 border-radius: 12px;
                 margin-bottom: 15px;
@@ -211,10 +211,10 @@
             }
 
                 .alert-warning i {
-                    color: #0d1b4a;
+                    color: #4a1a6c;
                 }
 
-            /* Decorative glow effect */
+            /* Decorative glow effect - Purple */
             .glow {
                 position: absolute;
                 width: 200px;
@@ -228,13 +228,13 @@
             .glow-1 {
                 top: -50px;
                 right: -50px;
-                background: rgba(26, 42, 108, 0.3);
+                background: rgba(74, 26, 108, 0.3);
             }
 
             .glow-2 {
                 bottom: -50px;
                 left: -50px;
-                background: rgba(13, 27, 74, 0.2);
+                background: rgba(124, 45, 174, 0.2);
             }
 
             @@media (max-width: 480px) {
@@ -319,14 +319,14 @@
             // Handle background image loading
             const bgImage = document.querySelector('.bg-image');
             bgImage.addEventListener('error', function() {
-                this.style.background = 'linear-gradient(135deg, #0a1628 0%, #1a2a6c 100%)';
+                this.style.background = 'linear-gradient(135deg, #1a0a2e 0%, #3a1a5e 100%)';
                 this.style.filter = 'none';
             });
 
             // Handle container image loading
             const containerImage = document.querySelector('.image-container img');
             containerImage.addEventListener('error', function() {
-                this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"%3E%3Crect fill="%231a2a6c" width="200" height="200"/%3E%3Ctext x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white" font-size="20" font-family="Arial"%3ECheque%3C/text%3E%3C/svg%3E';
+                this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"%3E%3Crect fill="%234a1a6c" width="200" height="200"/%3E%3Ctext x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white" font-size="20" font-family="Arial"%3ECheque%3C/text%3E%3C/svg%3E';
             });
     </script>
 </body>
