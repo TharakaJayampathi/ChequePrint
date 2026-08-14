@@ -25,7 +25,7 @@
               <xs:element name="Month2" msprop:Generator_UserColumnName="Month2" msprop:Generator_ColumnPropNameInTable="Month2Column" msprop:Generator_ColumnPropNameInRow="Month2" msprop:Generator_ColumnVarNameInTable="columnMonth2" type="xs:string" minOccurs="0" />
               <xs:element name="Date1" msprop:Generator_UserColumnName="Date1" msprop:Generator_ColumnPropNameInTable="Date1Column" msprop:Generator_ColumnPropNameInRow="Date1" msprop:Generator_ColumnVarNameInTable="columnDate1" type="xs:string" minOccurs="0" />
               <xs:element name="Date2" msprop:Generator_UserColumnName="Date2" msprop:Generator_ColumnPropNameInTable="Date2Column" msprop:Generator_ColumnPropNameInRow="Date2" msprop:Generator_ColumnVarNameInTable="columnDate2" type="xs:string" minOccurs="0" />
-              <xs:element name="AmontValue" msprop:Generator_ColumnPropNameInRow="AmontValue" msprop:Generator_ColumnPropNameInTable="AmontValueColumn" msprop:Generator_ColumnVarNameInTable="columnAmontValue" msprop:Generator_UserColumnName="AmontValue" type="xs:string" minOccurs="0" />
+              <xs:element name="AmountInWord" msprop:Generator_ColumnPropNameInRow="AmountInWord" msprop:Generator_ColumnPropNameInTable="AmountInWordColumn" msprop:Generator_ColumnVarNameInTable="columnAmountInWord" msprop:Generator_UserColumnName="AmountInWord" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
