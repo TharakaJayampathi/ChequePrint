@@ -143,7 +143,6 @@ namespace ChequePrint.Repository.ChequePrint
 
                                 string Amount = amountDecimal.ToString("N2", CultureInfo.InvariantCulture);
                                 string _amountInWord = ConvertAmountToWords(amountDecimal);
-                                string _amountInWordSuffix = "Rupees Only";
 
                                 string mimetypeCheckPrint = "";
                                 int extensionCheckPrint = 1;
@@ -214,10 +213,6 @@ namespace ChequePrint.Repository.ChequePrint
         private static readonly string[] _tens = { "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
         private static readonly string[] _scale = { "", "Thousand", "Million", "Billion", "Trillion" };
 
-        /// <summary>
-        /// Converts a decimal amount to words with proper formatting
-        /// Example: 1,878,912.39 -> "One Million Eight Hundred Seventy Eight Thousand Nine Hundred Twelve Rupees and Thirty Nine Cents Only"
-        /// </summary>
         private static string ConvertAmountToWords(decimal amount)
         {
             var wholePart = (long)Math.Floor(amount);
@@ -225,7 +220,6 @@ namespace ChequePrint.Repository.ChequePrint
 
             var words = new StringBuilder();
 
-            // Convert whole part
             if (wholePart > 0)
             {
                 words.Append(ConvertWholeNumberToWords(wholePart));
@@ -236,7 +230,6 @@ namespace ChequePrint.Repository.ChequePrint
                 words.Append("Zero Rupees");
             }
 
-            // Add fractional part (cents)
             if (fractionalPart > 0)
             {
                 if (wholePart > 0)
@@ -252,9 +245,6 @@ namespace ChequePrint.Repository.ChequePrint
             return words.ToString().Trim();
         }
 
-        /// <summary>
-        /// Converts a whole number to words using International numbering system
-        /// </summary>
         private static string ConvertWholeNumberToWords(long number)
         {
             if (number == 0) return "Zero";
@@ -284,10 +274,8 @@ namespace ChequePrint.Repository.ChequePrint
 
                     if (words.Length > 0)
                     {
-                        // Insert the group at the beginning with proper spacing
                         if (number == 0 && group < 100)
                         {
-                            // Don't add "and" here - we'll add it in the main method
                             words.Insert(0, groupWords + " ");
                         }
                         else
@@ -307,9 +295,6 @@ namespace ChequePrint.Repository.ChequePrint
             return words.ToString().Trim();
         }
 
-        /// <summary>
-        /// Converts a 3-digit group to words (0-999)
-        /// </summary>
         private static string ConvertGroupToWords(int number)
         {
             if (number == 0) return "";
@@ -347,9 +332,6 @@ namespace ChequePrint.Repository.ChequePrint
             return words.ToString().Trim();
         }
 
-        /// <summary>
-        /// Converts fractional part (cents) to words
-        /// </summary>
         private static string ConvertFractionToWords(int cents)
         {
             if (cents == 0) return "";
