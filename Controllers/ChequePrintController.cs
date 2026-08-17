@@ -17,5 +17,10 @@ namespace ChequePrint.Controllers
         {
             return View();
         }
+
+        public IActionResult BulkUpload()
+        {
+            return View();
+        }
     }
 }
