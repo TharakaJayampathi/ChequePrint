@@ -43,7 +43,7 @@ namespace ChequePrint.Repository.ChequePrint
                             var fileName = Path.GetFileName(file.FileName);
                             var extension = Path.GetExtension(file.FileName);
 
-                            if (extension != ".xls" && extension != ".xlsx")
+                            if (extension != ".xlsx")
                             {
                                 throw new Exception("Invalid Template");
                             }
