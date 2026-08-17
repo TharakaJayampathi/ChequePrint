@@ -25,6 +25,15 @@ namespace ChequePrint.Repository.ChequePrint
                 var transactionOptions = new TransactionOptions { Timeout = TimeSpan.FromMinutes(5), IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
                 using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
                 {
+                    if (model.PaymentMethod == (byte)PaymentMethod.CASH)
+                    { 
+                        model.ChequeName = "Cash";
+                    }
+
+                    if (model.PaymentMethod == (byte)PaymentMethod.CREDIT)
+                    {
+
+                    }
 
                     transactionScope.Complete();
                 }

@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     console.log('Working');
     $("#selectPaymentMethod").val(1).trigger('change.select2');
+    $('#txtChequeName').prop('disabled', true);
+    $("#txtChequeName").val('');
 })
 
 $("#btnPrint").on("click", async function () {
@@ -19,7 +21,7 @@ $("#btnPrint").on("click", async function () {
         toastr.error("", "Payment Method is mandatory", { progressBar: true });
         return false;
     }
-    if (!chequeName) {
+    if (!chequeName && paymentMethod == 2) {
         toastr.error("", "Cheque Name is mandatory", { progressBar: true });
         return false;
     }
@@ -94,6 +96,17 @@ $('#txtAmount').on('keypress', function (e) {
         e.preventDefault();
     }
 });
+
+$('#selectPaymentMethod').on('change', async function () {
+    var paymentMethod = $('#selectPaymentMethod').val() || null;
+    if (paymentMethod == 2) {
+        $('#txtChequeName').prop('disabled', false);
+    }
+    else {
+        $('#txtChequeName').prop('disabled', true);
+        $("#txtChequeName").val('');
+    }
+})
 
 $("#selectPaymentMethod").select2({
     placeholder: "-Please Select-"
