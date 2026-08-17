@@ -367,7 +367,6 @@
                 <div class="d-flex">
                     <div class="dropdown d-inline-block">
                             @{
-                                var userName1 = User.Identity.Name;
                             }
                             @*<span class="d-none d-xl-inline-block ms-1 fw-medium text-white">@Accessor.HttpContext.Session.GetString("SessionDisplayUserName")</span>*@
                             @*<span class="d-none d-xl-inline-block ms-1 fw-medium text-white">@ViewBag.LoggedUser</span>*@
@@ -375,7 +374,6 @@
                             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         <div class="dropdown-menu dropdown-menu-end">
                             @{
-                                var user = User.Identity.Name;
                             }
                         </div>
                     </div>
@@ -410,7 +408,7 @@
                                     var userName = @ViewBag.LoggedUser;
                                 }
                                 <h5 class="mb-0">@userName</h5>
-                                <span class="text-muted fst-italic">@User.Identity.Name</span>
+                                <span class="text-muted fst-italic"></span>
                             </div>
                         </div>
                         <div class="row">
