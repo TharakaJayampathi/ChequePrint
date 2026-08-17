@@ -4,7 +4,7 @@ namespace ChequePrint.Interfaces.ChequePrint
 {
     public interface IChequePrintRepository
     {
-        Task<byte[]> ChequePrintAsync(CheckPrintDTO model);
+        Task<(byte[] Content, string FileName)> ChequePrintAsync(CheckPrintDTO model);
         Task<(byte[] Content, string FileName)> ChequePrintAttachmentUploadAsync(ChequePrintAttachmentUploadDTO model);
     }
 }

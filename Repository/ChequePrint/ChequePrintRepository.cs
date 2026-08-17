@@ -18,7 +18,7 @@ namespace ChequePrint.Repository.ChequePrint
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public async Task<byte[]> ChequePrintAsync(CheckPrintDTO model)
+        public async Task<(byte[] Content, string FileName)> ChequePrintAsync(CheckPrintDTO model)
         {
             try
             {
@@ -73,7 +73,13 @@ namespace ChequePrint.Repository.ChequePrint
 
                     transactionScope.Complete();
 
-                    return reportResultLetter.MainStream;
+                    // Generate filename
+                    var safeName = string.Join("_", model.ChequeName.Split(Path.GetInvalidFileNameChars()));
+                    var dateForFileName = model.Date.ToString("yyyy_MM_dd");
+                    var fileName = $"Cheque_{safeName}_{dateForFileName}.pdf";
+
+                    // Return both the PDF content and the filename
+                    return (reportResultLetter.MainStream, fileName);
                 }
             }
             catch (Exception ex)
