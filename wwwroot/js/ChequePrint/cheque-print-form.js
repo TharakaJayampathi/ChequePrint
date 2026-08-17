@@ -83,6 +83,11 @@ $("#btnPrint").on("click", async function () {
                     toastr.success("", "Check Printed Successfully", { progressBar: true });
                     document.getElementById("pageOverlay").style.display = "none";
                     $('#btnPrint').prop("disabled", false);
+                    $("#selectPaymentMethod").val(1).trigger('change.select2');
+                    $('#txtChequeName').prop('disabled', true);
+                    $("#txtChequeName").val('');
+                    $("#txtDate").val('');
+                    $("#txtAmount").val('');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     var errorMessage = "Something went wrong.";
@@ -96,6 +101,11 @@ $("#btnPrint").on("click", async function () {
                     toastr.error(errorMessage);
                     document.getElementById("pageOverlay").style.display = "none";
                     $('#btnPrint').prop("disabled", false);
+                    $("#selectPaymentMethod").val(1).trigger('change.select2');
+                    $('#txtChequeName').prop('disabled', true);
+                    $("#txtChequeName").val('');
+                    $("#txtDate").val('');
+                    $("#txtAmount").val('');
                 }
             });
         } else {
