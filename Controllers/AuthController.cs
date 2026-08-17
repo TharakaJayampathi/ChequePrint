@@ -8,5 +8,10 @@ namespace ChequePrint.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Logoff()
+        {
+            return RedirectToAction("Index", "Auth");
+        }
     }
 }
