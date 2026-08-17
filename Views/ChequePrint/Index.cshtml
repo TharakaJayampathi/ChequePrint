@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Cheque Print";
-    ViewData["Logo"] = Url.Content("~/lib/landing-page/finance-logo.png");
     Layout = "~/Views/Shared/Nifty/_Layout.cshtml";
 }
 
@@ -40,7 +39,7 @@
             <br>
             <br>
             <div class="card-body">
-                <form id="formFileUpload" asp-action="CreateNewDivisionChampionDivisionFileUpload" asp-controller="DivisionChampionDivisionFileUpload" method="post" enctype="multipart/form-data">
+                <form id="formFileUpload">
                     <h2>Cheque Print Upload</h2>
                     <br>
                     <br>
