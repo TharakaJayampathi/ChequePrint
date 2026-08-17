@@ -87,7 +87,7 @@ namespace ChequePrint.Repository.ChequePrint
                             }
 
                             var lastRowUsed = ws.LastRowUsed();
-                            var lastRow = lastRowUsed.RowNumber();
+                            var lastRow = lastRowUsed?.RowNumber();
 
                             if (lastRow < 2)
                             {
