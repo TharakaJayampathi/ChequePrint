@@ -54,31 +54,61 @@ $("#btnPrint").on("click", async function () {
         if (isConfirm) {
             document.getElementById("pageOverlay").style.display = "block";
             $('#btnPrint').prop("disabled", true);
-            return $.ajax({
+
+            $.ajax({
                 url: "/api/chequeprint/cheque-print",
                 method: "POST",
                 data: JSON.stringify(checkPrint),
                 contentType: "application/json; charset=utf-8",
-                success: function (response) {
+                xhrFields: {
+                    responseType: 'blob' // Important for file download
+                },
+                success: function (response, status, xhr) {
+                    // Create a blob from the response
+                    var blob = new Blob([response], { type: 'application/pdf' });
+
+                    // Create download link
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+
+                    // Extract filename from Content-Disposition header if available
+                    var contentDisposition = xhr.getResponseHeader('Content-Disposition');
+                    var filename = 'Cheque_Print.pdf';
+                    if (contentDisposition) {
+                        var match = contentDisposition.match(/filename\*?=([^;]+)/);
+                        if (match && match[1]) {
+                            filename = decodeURIComponent(match[1].replace(/["']/g, ''));
+                        }
+                    }
+
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
                     toastr.success("", "Check Printed Successfully", { progressBar: true });
+                    document.getElementById("pageOverlay").style.display = "none";
+                    $('#btnPrint').prop("disabled", false);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    var errorMessage = jqXHR.responseJSON && jqXHR.responseJSON.message
-                        ? jqXHR.responseJSON.message
-                        : "Something went wrong.";
+                    var errorMessage = "Something went wrong.";
+                    try {
+                        var response = JSON.parse(jqXHR.responseText);
+                        errorMessage = response.message || errorMessage;
+                    } catch (e) {
+                        // If response is not JSON, use status text
+                        errorMessage = jqXHR.statusText || errorMessage;
+                    }
                     console.log(errorMessage);
                     toastr.error(errorMessage);
                     document.getElementById("pageOverlay").style.display = "none";
                     $('#btnPrint').prop("disabled", false);
-                },
-                complete: function () {
                 }
             });
         } else {
             swal("Cancelled", "", "error");
         }
     })
-
 });
 
 $('#txtAmount').on('input', function () {
