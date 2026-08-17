@@ -18,29 +18,67 @@ namespace ChequePrint.Repository.ChequePrint
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public async Task ChequePrintAsync(CheckPrintDTO model)
+        public async Task<byte[]> ChequePrintAsync(CheckPrintDTO model)
         {
             try
             {
                 var transactionOptions = new TransactionOptions { Timeout = TimeSpan.FromMinutes(5), IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
                 using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
                 {
-                    if (model.PaymentMethod == (byte)PaymentMethod.CASH)
-                    { 
-                        model.ChequeName = "Cash";
-                    }
+                    var yearDigits = model.Date.Year.ToString("D4");
+                    var monthDigits = model.Date.Month.ToString("D2");
+                    var dayDigits = model.Date.Day.ToString("D2");
 
-                    if (model.PaymentMethod == (byte)PaymentMethod.CREDIT)
-                    {
+                    string Year1 = yearDigits[0].ToString();
+                    string Year2 = yearDigits[1].ToString();
+                    string Year3 = yearDigits[2].ToString();
+                    string Year4 = yearDigits[3].ToString();
+                    string Month1 = monthDigits[0].ToString();
+                    string Month2 = monthDigits[1].ToString();
+                    string Date1 = dayDigits[0].ToString();
+                    string Date2 = dayDigits[1].ToString();
 
-                    }
+                    var amountDecimal = Convert.ToDecimal(model.Amount);
+                    string Amount = amountDecimal.ToString("N2", CultureInfo.InvariantCulture);
+                    string _amountInWord = ConvertAmountToWords(amountDecimal);
+
+                    string mimetypeCheckPrint = "";
+                    int extensionCheckPrint = 1;
+
+                    var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
+                        new CheckPrintDataSetDTO {
+                            EmployeeName = model.ChequeName,
+                            Amount = Amount,
+                            Year1 = Year1,
+                            Year2 = Year2,
+                            Year3 = Year3,
+                            Year4 = Year4,
+                            Month1 = Month1,
+                            Month2 = Month2,
+                            Date1 = Date1,
+                            Date2 = Date2,
+                            AmountInWord = _amountInWord
+                        }
+                    };
+
+                    var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
+
+                    Dictionary<string, string> para = new Dictionary<string, string>();
+                    para.Add("prm", "RDLC Report");
+
+                    LocalReport rpt = new LocalReport(reportRdlcPath);
+                    rpt.AddDataSource("dsChequePrint", checkPrintLetterDetail);
+
+                    var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
 
                     transactionScope.Complete();
+
+                    return reportResultLetter.MainStream;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception($"Error generating cheque print: {ex.Message}", ex);
             }
         }
 
