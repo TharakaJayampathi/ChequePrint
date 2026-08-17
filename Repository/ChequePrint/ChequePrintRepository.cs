@@ -37,7 +37,7 @@ namespace ChequePrint.Repository.ChequePrint
                         {
                             if (file == null) continue;
 
-                            var basePathInProj = Path.Combine(_hostingEnvironment.WebRootPath, "AdminRequestFileUpload");
+                            var basePathInProj = Path.Combine(_hostingEnvironment.WebRootPath, "CheckPrintUpload");
                             if (!Directory.Exists(basePathInProj)) Directory.CreateDirectory(basePathInProj);
 
                             var fileName = Path.GetFileName(file.FileName);
