@@ -1,16 +1,36 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<xs:schema id="dsCashChequePrint" 
-                  targetNamespace="http://tempuri.org/dsCashChequePrint.xsd"
-                  elementFormDefault="qualified"
-                  attributeFormDefault="qualified"
-                  xmlns="http://tempuri.org/dsCashChequePrint.xsd"
-                  xmlns:mstns="http://tempuri.org/dsCashChequePrint.xsd"
-                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
-                  xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
-    <xs:element name="dsCashChequePrint" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true">
-        <xs:complexType>
-            <xs:choice minOccurs="0" maxOccurs="unbounded"></xs:choice>
-        </xs:complexType>
-    </xs:element>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsCashChequePrint" targetNamespace="http://tempuri.org/dsCashChequePrint.xsd" xmlns:mstns="http://tempuri.org/dsCashChequePrint.xsd" xmlns="http://tempuri.org/dsCashChequePrint.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsCashChequePrint" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="dsCashChequePrint" msprop:Generator_DataSetName="dsCashChequePrint">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="CashChequePrint" msprop:Generator_RowEvHandlerName="CashChequePrintRowChangeEventHandler" msprop:Generator_RowDeletedName="CashChequePrintRowDeleted" msprop:Generator_RowDeletingName="CashChequePrintRowDeleting" msprop:Generator_RowEvArgName="CashChequePrintRowChangeEvent" msprop:Generator_TablePropName="CashChequePrint" msprop:Generator_RowChangedName="CashChequePrintRowChanged" msprop:Generator_RowChangingName="CashChequePrintRowChanging" msprop:Generator_TableClassName="CashChequePrintDataTable" msprop:Generator_RowClassName="CashChequePrintRow" msprop:Generator_TableVarName="tableCashChequePrint" msprop:Generator_UserTableName="CashChequePrint">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="EmployeeName" msprop:Generator_ColumnPropNameInRow="EmployeeName" msprop:Generator_ColumnPropNameInTable="EmployeeNameColumn" msprop:Generator_ColumnVarNameInTable="columnEmployeeName" msprop:Generator_UserColumnName="EmployeeName" type="xs:string" minOccurs="0" />
+              <xs:element name="Amount" msprop:Generator_ColumnPropNameInRow="Amount" msprop:Generator_ColumnPropNameInTable="AmountColumn" msprop:Generator_ColumnVarNameInTable="columnAmount" msprop:Generator_UserColumnName="Amount" type="xs:string" minOccurs="0" />
+              <xs:element name="Year1" msprop:Generator_ColumnPropNameInRow="Year1" msprop:Generator_ColumnPropNameInTable="Year1Column" msprop:Generator_ColumnVarNameInTable="columnYear1" msprop:Generator_UserColumnName="Year1" type="xs:string" minOccurs="0" />
+              <xs:element name="Year2" msprop:Generator_ColumnPropNameInRow="Year2" msprop:Generator_ColumnPropNameInTable="Year2Column" msprop:Generator_ColumnVarNameInTable="columnYear2" msprop:Generator_UserColumnName="Year2" type="xs:string" minOccurs="0" />
+              <xs:element name="Year3" msprop:Generator_ColumnPropNameInRow="Year3" msprop:Generator_ColumnPropNameInTable="Year3Column" msprop:Generator_ColumnVarNameInTable="columnYear3" msprop:Generator_UserColumnName="Year3" type="xs:string" minOccurs="0" />
+              <xs:element name="Year4" msprop:Generator_ColumnPropNameInRow="Year4" msprop:Generator_ColumnPropNameInTable="Year4Column" msprop:Generator_ColumnVarNameInTable="columnYear4" msprop:Generator_UserColumnName="Year4" type="xs:string" minOccurs="0" />
+              <xs:element name="Month1" msprop:Generator_ColumnPropNameInRow="Month1" msprop:Generator_ColumnPropNameInTable="Month1Column" msprop:Generator_ColumnVarNameInTable="columnMonth1" msprop:Generator_UserColumnName="Month1" type="xs:string" minOccurs="0" />
+              <xs:element name="Month2" msprop:Generator_ColumnPropNameInRow="Month2" msprop:Generator_ColumnPropNameInTable="Month2Column" msprop:Generator_ColumnVarNameInTable="columnMonth2" msprop:Generator_UserColumnName="Month2" type="xs:string" minOccurs="0" />
+              <xs:element name="Date1" msprop:Generator_ColumnPropNameInRow="Date1" msprop:Generator_ColumnPropNameInTable="Date1Column" msprop:Generator_ColumnVarNameInTable="columnDate1" msprop:Generator_UserColumnName="Date1" type="xs:string" minOccurs="0" />
+              <xs:element name="Date2" msprop:Generator_ColumnPropNameInRow="Date2" msprop:Generator_ColumnPropNameInTable="Date2Column" msprop:Generator_ColumnVarNameInTable="columnDate2" msprop:Generator_UserColumnName="Date2" type="xs:string" minOccurs="0" />
+              <xs:element name="AmountInWord" msprop:Generator_ColumnPropNameInRow="AmountInWord" msprop:Generator_ColumnPropNameInTable="AmountInWordColumn" msprop:Generator_ColumnVarNameInTable="columnAmountInWord" msprop:Generator_UserColumnName="AmountInWord" type="xs:string" minOccurs="0" />
+              <xs:element name="ChequeName" msprop:Generator_ColumnPropNameInRow="ChequeName" msprop:Generator_ColumnPropNameInTable="ChequeNameColumn" msprop:Generator_ColumnVarNameInTable="columnChequeName" msprop:Generator_UserColumnName="ChequeName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
