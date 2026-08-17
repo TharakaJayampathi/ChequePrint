@@ -61,6 +61,10 @@
           <DataField>AmountInWord</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ChequeName">
+          <DataField>ChequeName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsChequePrint</rd:DataSetName>

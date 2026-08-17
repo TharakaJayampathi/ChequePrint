@@ -303,6 +303,8 @@ namespace ChequePrint.DataSet.ChequePrint {
             
             private global::System.Data.DataColumn columnAmountInWord;
             
+            private global::System.Data.DataColumn columnChequeName;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public ChequePrintDataTable() {
@@ -428,6 +430,14 @@ namespace ChequePrint.DataSet.ChequePrint {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ChequeNameColumn {
+                get {
+                    return this.columnChequeName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -463,7 +473,7 @@ namespace ChequePrint.DataSet.ChequePrint {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public ChequePrintRow AddChequePrintRow(string EmployeeName, string Amount, string Year1, string Year2, string Year3, string Year4, string Month1, string Month2, string Date1, string Date2, string AmountInWord) {
+            public ChequePrintRow AddChequePrintRow(string EmployeeName, string Amount, string Year1, string Year2, string Year3, string Year4, string Month1, string Month2, string Date1, string Date2, string AmountInWord, string ChequeName) {
                 ChequePrintRow rowChequePrintRow = ((ChequePrintRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         EmployeeName,
@@ -476,7 +486,8 @@ namespace ChequePrint.DataSet.ChequePrint {
                         Month2,
                         Date1,
                         Date2,
-                        AmountInWord};
+                        AmountInWord,
+                        ChequeName};
                 rowChequePrintRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowChequePrintRow);
                 return rowChequePrintRow;
@@ -510,6 +521,7 @@ namespace ChequePrint.DataSet.ChequePrint {
                 this.columnDate1 = base.Columns["Date1"];
                 this.columnDate2 = base.Columns["Date2"];
                 this.columnAmountInWord = base.Columns["AmountInWord"];
+                this.columnChequeName = base.Columns["ChequeName"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -537,6 +549,8 @@ namespace ChequePrint.DataSet.ChequePrint {
                 base.Columns.Add(this.columnDate2);
                 this.columnAmountInWord = new global::System.Data.DataColumn("AmountInWord", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAmountInWord);
+                this.columnChequeName = new global::System.Data.DataColumn("ChequeName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnChequeName);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -855,6 +869,22 @@ namespace ChequePrint.DataSet.ChequePrint {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public string ChequeName {
+                get {
+                    try {
+                        return ((string)(this[this.tableChequePrint.ChequeNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ChequeName\' in table \'ChequePrint\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableChequePrint.ChequeNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsEmployeeNameNull() {
                 return this.IsNull(this.tableChequePrint.EmployeeNameColumn);
             }
@@ -983,6 +1013,18 @@ namespace ChequePrint.DataSet.ChequePrint {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetAmountInWordNull() {
                 this[this.tableChequePrint.AmountInWordColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsChequeNameNull() {
+                return this.IsNull(this.tableChequePrint.ChequeNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetChequeNameNull() {
+                this[this.tableChequePrint.ChequeNameColumn] = global::System.Convert.DBNull;
             }
         }
         
