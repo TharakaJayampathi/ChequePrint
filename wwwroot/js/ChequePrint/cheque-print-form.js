@@ -61,17 +61,12 @@ $("#btnPrint").on("click", async function () {
                 data: JSON.stringify(checkPrint),
                 contentType: "application/json; charset=utf-8",
                 xhrFields: {
-                    responseType: 'blob' // Important for file download
+                    responseType: 'blob' 
                 },
                 success: function (response, status, xhr) {
-                    // Create a blob from the response
                     var blob = new Blob([response], { type: 'application/pdf' });
-
-                    // Create download link
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-
-                    // Extract filename from Content-Disposition header if available
                     var contentDisposition = xhr.getResponseHeader('Content-Disposition');
                     var filename = 'Cheque_Print.pdf';
                     if (contentDisposition) {
@@ -80,7 +75,6 @@ $("#btnPrint").on("click", async function () {
                             filename = decodeURIComponent(match[1].replace(/["']/g, ''));
                         }
                     }
-
                     link.download = filename;
                     document.body.appendChild(link);
                     link.click();
@@ -96,7 +90,6 @@ $("#btnPrint").on("click", async function () {
                         var response = JSON.parse(jqXHR.responseText);
                         errorMessage = response.message || errorMessage;
                     } catch (e) {
-                        // If response is not JSON, use status text
                         errorMessage = jqXHR.statusText || errorMessage;
                     }
                     console.log(errorMessage);
