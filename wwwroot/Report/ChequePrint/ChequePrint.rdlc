@@ -77,17 +77,17 @@
       <Body>
         <ReportItems>
           <Image Name="Image1">
-            <Source>Embedded</Source>
-            <Value>cheue_template_v1</Value>
-            <Sizing>FitProportional</Sizing>
-            <Height>4.05221in</Height>
-            <Width>9.88334in</Width>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Image>
+        <Source>Embedded</Source>
+        <Value>credit_cheque_template_v11</Value>
+        <Sizing>FitProportional</Sizing>
+        <Height>3.9in</Height>
+        <Width>8.59667in</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
           <Textbox Name="Textbox1">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -141,7 +141,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.70778in</Top>
+            <Top>1.83278in</Top>
             <Left>7.49488in</Left>
             <Height>0.26333in</Height>
             <Width>1.59167in</Width>

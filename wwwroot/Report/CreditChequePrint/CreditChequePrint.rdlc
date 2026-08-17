@@ -6,8 +6,8 @@
         <Source>Embedded</Source>
         <Value>credit_cheque_template_v11</Value>
         <Sizing>FitProportional</Sizing>
-        <Height>3.9in</Height>
-        <Width>8.59667in</Width>
+        <Height>4.01667in</Height>
+        <Width>8.73834in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -15,10 +15,10 @@
         </Style>
       </Image>
     </ReportItems>
-    <Height>3.9in</Height>
+    <Height>4.01667in</Height>
     <Style />
   </Body>
-  <Width>8.59667in</Width>
+  <Width>8.73834in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
