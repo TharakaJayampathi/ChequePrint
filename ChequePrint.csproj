@@ -46,17 +46,35 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="DataSet\CashCheckPrint\dsCashChequePrint.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>dsCashChequePrint.xsd</DependentUpon>
+		</Compile>
 		<Compile Update="DataSet\ChequePrint\dsChequePrint.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>dsChequePrint.xsd</DependentUpon>
 		</Compile>
+		<Compile Update="DataSet\CreditCheckPrint\dsCreditChequePrint.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>dsCreditChequePrint.xsd</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="DataSet\CashCheckPrint\dsCashChequePrint.xsd">
+		  <Generator>MSDataSetGenerator</Generator>
+		  <LastGenOutput>dsCashChequePrint.Designer.cs</LastGenOutput>
+		</None>
 		<None Update="DataSet\ChequePrint\dsChequePrint.xsd">
 			<Generator>MSDataSetGenerator</Generator>
 			<LastGenOutput>dsChequePrint.Designer.cs</LastGenOutput>
+		</None>
+		<None Update="DataSet\CreditCheckPrint\dsCreditChequePrint.xsd">
+		  <Generator>MSDataSetGenerator</Generator>
+		  <LastGenOutput>dsCreditChequePrint.Designer.cs</LastGenOutput>
 		</None>
 	</ItemGroup>
 
