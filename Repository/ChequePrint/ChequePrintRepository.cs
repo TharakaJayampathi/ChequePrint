@@ -18,6 +18,23 @@ namespace ChequePrint.Repository.ChequePrint
             _hostingEnvironment = hostingEnvironment;
         }
 
+        public async Task ChequePrintAsync(CheckPrintDTO model)
+        {
+            try
+            {
+                var transactionOptions = new TransactionOptions { Timeout = TimeSpan.FromMinutes(5), IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
+                using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
+                {
+
+                    transactionScope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<(byte[] Content, string FileName)> ChequePrintAttachmentUploadAsync(ChequePrintAttachmentUploadDTO model)
         {
             try

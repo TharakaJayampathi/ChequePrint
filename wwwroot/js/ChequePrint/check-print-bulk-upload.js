@@ -8,6 +8,7 @@
     $('#btnText').hide();
     $('#btnSpinner').show();
     $('#btnAddAttachment').prop('disabled', true);
+    document.getElementById("pageOverlay").style.display = "block";
     var files = input.files;
     for (var i = 0; i < files.length; i++) {
         formData.append("Files", files[i]);
@@ -74,6 +75,7 @@
             $('#btnText').show();
             $('#btnSpinner').hide();
             $('#btnAddAttachment').prop('disabled', false);
+            document.getElementById("pageOverlay").style.display = "none";
             document.getElementById('txtAttachment').value = '';
         }
     });
