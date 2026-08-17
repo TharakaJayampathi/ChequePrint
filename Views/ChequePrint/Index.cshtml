@@ -34,32 +34,68 @@
 
 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
     <div class="content flex-row-fluid" id="kt_content">
-        <div id="placeHolder"></div>
-        <div class="card">
-            <br>
-            <br>
-            <div class="card-body">
-                <form id="formFileUpload">
-                    <h2>Cheque Print Upload</h2>
-                    <br>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input id="txtAttachment" type="file" class="form-control" name="file" accept=".xlsx" />
-                        </div>
-                        <div class="col-md-4 mr-5">
-                            <button type="button" class="btn btn-primary mr-5" id="btnAddAttachment">
-                                <span id="btnText">Upload</span>
-                                <span id="btnSpinner" style="display: none;">
-                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    Uploading...
-                                </span>
-                            </button>
+        <div class="card mr-2">
+            <div class="card-body" id="divCheckPrint">
+                <form id="formCheckPrint">
+                    <br />
+                    <br />
+                    <div class="collapse show">
+                        <div class="container-fluid px-0">
+                            <div class="row">
+                                <div class="col-lg-6" id="divPaymentMethodDropdown">
+                                    <div class="form-group row my-5">
+                                        <label id="lblPaymentMethodDropdown" class="col-lg-4 col-form-label mandatoryField">Issue/Request</label>
+                                        <div class="col-lg-6">
+                                            <select id="selectPaymentMethod" class="form-control">
+                                                <option value="">- Please Select -</option>
+                                                <option value="1">Cash</option>
+                                                <option value="2">Credit</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6" id="divChequeName">
+                                    <div class="form-group row my-5">
+                                        <label id="lblChequeName" class="col-lg-4 col-form-label mandatoryField">Cheque Name</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="txtChequeName" type="text" placeholder="Cheque Name" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" id="divDate">
+                                    <div class="form-group row my-5">
+                                        <label id="lblDate" class="col-lg-4 col-form-label mandatoryField">Date</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="txtDate" type="date" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6" id="divAmount">
+                                    <div class="form-group row my-5">
+                                        <label id="lblQty" class="col-lg-4 col-form-label mandatoryField">Amount</label>
+                                        <div class="col-lg-6">
+                                            <input class="form-control" id="txtAmount" type="number" placeholder="0" step="0.01" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
                         </div>
                     </div>
-                    <br>
-                    <br>
                 </form>
+            </div>
+            <div class="card-footer">
+                <div class="row justify-content-end">
+                    <div class="col">
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" id="btnSubmit" class="btn btn-block btn-primary" style="width:125px;">
+                            <i class="bi bi-save" aria-hidden="true"></i> Submit
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
