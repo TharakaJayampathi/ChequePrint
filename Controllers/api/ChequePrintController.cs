@@ -17,7 +17,7 @@ namespace ChequePrint.Controllers.api
         }
 
         [HttpPost("cheque-print")]
-        public async Task<IActionResult> ChequePrintAsync([FromForm] CheckPrintDTO model)
+        public async Task<IActionResult> ChequePrintAsync(CheckPrintDTO model)
         {
             try
             {
