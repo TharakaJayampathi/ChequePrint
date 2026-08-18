@@ -29,7 +29,7 @@ namespace ChequePrint.Repository.ChequePrint
                 }
                 else if (model.PaymentMethod == (byte)PaymentMethod.CREDIT)
                 {
-                    var _res = await CashChequePrintAsync(model);
+                    var _res = await CreditChequePrintAsync(model);
                     return _res;
                 }
                 else
@@ -145,13 +145,13 @@ namespace ChequePrint.Repository.ChequePrint
                         }
                     };
 
-                var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
+                var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\CreditChequePrint\\CreditChequePrint.rdlc";
 
                 Dictionary<string, string> para = new Dictionary<string, string>();
                 para.Add("prm", "RDLC Report");
 
                 LocalReport rpt = new LocalReport(reportRdlcPath);
-                rpt.AddDataSource("dsChequePrint", checkPrintLetterDetail);
+                rpt.AddDataSource("dsCreditChequePrint", checkPrintLetterDetail);
 
                 var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
 
