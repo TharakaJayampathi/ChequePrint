@@ -1,6 +1,6 @@
 ﻿namespace ChequePrint.DTOs.ChequePrint
 {
-    public class CheckPrintDataSetDTO
+    public class ChequePrintDataSetDTO
     {
         public string EmployeeName { get; set; }
         public string Amount { get; set; }

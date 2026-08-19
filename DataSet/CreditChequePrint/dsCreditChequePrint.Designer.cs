@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace ChequePrint.DataSet.CreditCheckPrint {
+namespace ChequePrint.DataSet.CreditChequePrint {
     
     
     /// <summary>

@@ -18,7 +18,7 @@ namespace ChequePrint.Repository.ChequePrint
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public async Task<(byte[] Content, string FileName)> ChequePrintAsync(CheckPrintDTO model)
+        public async Task<(byte[] Content, string FileName)> ChequePrintAsync(ChequePrintDTO model)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace ChequePrint.Repository.ChequePrint
             }
         }
 
-        public async Task<(byte[] Content, string FileName)> CashChequePrintAsync(CheckPrintDTO model)
+        public async Task<(byte[] Content, string FileName)> CashChequePrintAsync(ChequePrintDTO model)
         {
             try
             {
@@ -64,11 +64,11 @@ namespace ChequePrint.Repository.ChequePrint
                 string Amount = amountDecimal.ToString("N2", CultureInfo.InvariantCulture);
                 string _amountInWord = ConvertAmountToWords(amountDecimal);
 
-                string mimetypeCheckPrint = "";
-                int extensionCheckPrint = 1;
+                string mimetypeChequePrint = "";
+                int extensionChequePrint = 1;
 
-                var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
-                    new CheckPrintDataSetDTO {
+                var chequePrintLetterDetail = new List<ChequePrintDataSetDTO> {
+                    new ChequePrintDataSetDTO {
                         ChequeName = model.ChequeName,
                         Amount = Amount,
                         Year1 = Year1,
@@ -83,15 +83,15 @@ namespace ChequePrint.Repository.ChequePrint
                     }
                 };
 
-                var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
+                var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\CashChequePrint\\CashChequePrint.rdlc";
 
                 Dictionary<string, string> para = new Dictionary<string, string>();
                 para.Add("prm", "RDLC Report");
 
                 LocalReport rpt = new LocalReport(reportRdlcPath);
-                rpt.AddDataSource("dsChequePrint", checkPrintLetterDetail);
+                rpt.AddDataSource("dsCashChequePrint", chequePrintLetterDetail);
 
-                var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
+                var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionChequePrint, para, mimetypeChequePrint);
 
                 var safeName = string.Join("_", model.ChequeName.Split(Path.GetInvalidFileNameChars()));
                 var dateForFileName = model.Date.ToString("yyyy_MM_dd");
@@ -107,7 +107,7 @@ namespace ChequePrint.Repository.ChequePrint
             }
         }
 
-        public async Task<(byte[] Content, string FileName)> CreditChequePrintAsync(CheckPrintDTO model)
+        public async Task<(byte[] Content, string FileName)> CreditChequePrintAsync(ChequePrintDTO model)
         {
             try
             {
@@ -128,11 +128,11 @@ namespace ChequePrint.Repository.ChequePrint
                 string Amount = amountDecimal.ToString("N2", CultureInfo.InvariantCulture);
                 string _amountInWord = ConvertAmountToWords(amountDecimal);
 
-                string mimetypeCheckPrint = "";
-                int extensionCheckPrint = 1;
+                string mimetypeChequePrint = "";
+                int extensionChequePrint = 1;
 
-                var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
-                    new CheckPrintDataSetDTO {
+                var chequePrintLetterDetail = new List<ChequePrintDataSetDTO> {
+                    new ChequePrintDataSetDTO {
                         ChequeName = model.ChequeName,
                         Amount = Amount,
                         Year1 = Year1,
@@ -153,9 +153,9 @@ namespace ChequePrint.Repository.ChequePrint
                 para.Add("prm", "RDLC Report");
 
                 LocalReport rpt = new LocalReport(reportRdlcPath);
-                rpt.AddDataSource("dsCreditChequePrint", checkPrintLetterDetail);
+                rpt.AddDataSource("dsCreditChequePrint", chequePrintLetterDetail);
 
-                var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
+                var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionChequePrint, para, mimetypeChequePrint);
 
                 var safeName = string.Join("_", model.ChequeName.Split(Path.GetInvalidFileNameChars()));
                 var dateForFileName = model.Date.ToString("yyyy_MM_dd");
@@ -190,7 +190,7 @@ namespace ChequePrint.Repository.ChequePrint
                         {
                             if (file == null) continue;
 
-                            var basePathInProj = Path.Combine(_hostingEnvironment.WebRootPath, "CheckPrintUpload");
+                            var basePathInProj = Path.Combine(_hostingEnvironment.WebRootPath, "ChequePrintUpload");
                             if (!Directory.Exists(basePathInProj)) Directory.CreateDirectory(basePathInProj);
 
                             var fileName = Path.GetFileName(file.FileName);
@@ -247,14 +247,14 @@ namespace ChequePrint.Repository.ChequePrint
                                 throw new Exception("There is no records in the uploaded file");
                             }
 
-                            var _checkPrintDataList = new List<CheckPrintDataDTO>();
+                            var _chequePrintDataList = new List<ChequePrintDataDTO>();
                             for (var i = 2; i <= lastRow; i++)
                             {
                                 var _employeeName = ws.Cell($"A{i}").GetValue<string>().Trim();
                                 var _date = ws.Cell($"B{i}").GetValue<string>().Trim();
                                 var _amount = ws.Cell($"C{i}").GetValue<string>().Trim();
 
-                                _checkPrintDataList.Add(new CheckPrintDataDTO
+                                _chequePrintDataList.Add(new ChequePrintDataDTO
                                 {
                                     EmployeeName = _employeeName,
                                     Date = _date,
@@ -265,7 +265,7 @@ namespace ChequePrint.Repository.ChequePrint
                             var usedFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                             var successfulPrints = new List<(string EmployeeName, DateTime Date, decimal Amount)>();
 
-                            foreach (var item in _checkPrintDataList)
+                            foreach (var item in _chequePrintDataList)
                             {
                                 if (!DateTime.TryParse(item.Date, CultureInfo.InvariantCulture, DateTimeStyles.None, out var parsedDate))
                                 {
@@ -298,11 +298,11 @@ namespace ChequePrint.Repository.ChequePrint
                                 string Amount = amountDecimal.ToString("N2", CultureInfo.InvariantCulture);
                                 string _amountInWord = ConvertAmountToWords(amountDecimal);
 
-                                string mimetypeCheckPrint = "";
-                                int extensionCheckPrint = 1;
+                                string mimetypeChequePrint = "";
+                                int extensionChequePrint = 1;
 
-                                var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
-                                    new CheckPrintDataSetDTO {
+                                var chequePrintLetterDetail = new List<ChequePrintDataSetDTO> {
+                                    new ChequePrintDataSetDTO {
                                         EmployeeName = $"{item.EmployeeName}",
                                         Amount = $"{Amount}",
                                         Year1 = $"{Year1}", Year2 = $"{Year2}", Year3 = $"{Year3}", Year4 = $"{Year4}",
@@ -318,9 +318,9 @@ namespace ChequePrint.Repository.ChequePrint
                                 para.Add("prm", "RDLC Report");
 
                                 LocalReport rpt = new LocalReport(reportRdlcPath);
-                                rpt.AddDataSource("dsChequePrint", checkPrintLetterDetail);
+                                rpt.AddDataSource("dsChequePrint", chequePrintLetterDetail);
 
-                                var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionCheckPrint, para, mimetypeCheckPrint);
+                                var reportResultLetter = rpt.Execute(RenderType.Pdf, extensionChequePrint, para, mimetypeChequePrint);
 
                                 var safeEmployeeName = string.Join("_", item.EmployeeName.Split(Path.GetInvalidFileNameChars()));
                                 var dateForFileName = parsedDate.ToString("yyyy_MM_dd");
@@ -517,8 +517,8 @@ namespace ChequePrint.Repository.ChequePrint
         {
             try
             {
-                var excelDirectory = Path.Combine(_hostingEnvironment.WebRootPath, "CheckPrintTracking");
-                var excelFilePath = Path.Combine(excelDirectory, "Check_Print_Tracking_v1.xlsx");
+                var excelDirectory = Path.Combine(_hostingEnvironment.WebRootPath, "ChequePrintTracking");
+                var excelFilePath = Path.Combine(excelDirectory, "Cheque_Print_Tracking_v1.xlsx");
 
                 if (!Directory.Exists(excelDirectory))
                 {

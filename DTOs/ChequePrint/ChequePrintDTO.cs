@@ -1,6 +1,6 @@
 ﻿namespace ChequePrint.DTOs.ChequePrint
 {
-    public class CheckPrintDTO
+    public class ChequePrintDTO
     {
         public byte PaymentMethod { get; set; }
         public string ChequeName { get; set; }

@@ -18,7 +18,7 @@ namespace ChequePrint.Controllers.api
 
         [HttpPost]
         [Route("cheque-print")]
-        public async Task<IActionResult> ChequePrintAsync(CheckPrintDTO model)
+        public async Task<IActionResult> ChequePrintAsync(ChequePrintDTO model)
         {
             try
             {
