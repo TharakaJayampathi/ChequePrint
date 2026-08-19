@@ -84,8 +84,9 @@
             <Source>Embedded</Source>
             <Value>credit_cheque_template_v12</Value>
             <Sizing>FitProportional</Sizing>
-            <Height>4.05221in</Height>
-            <Width>9.88334in</Width>
+            <Top>0.01667in</Top>
+            <Height>3.66054in</Height>
+            <Width>9.00508in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -112,7 +113,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.98333in</Top>
-            <Left>1.14488in</Left>
+            <Left>1.83932in</Left>
             <Height>0.26333in</Height>
             <Width>7.10834in</Width>
             <ZIndex>1</ZIndex>
@@ -146,7 +147,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
             <Top>1.70778in</Top>
-            <Left>7.49488in</Left>
+            <Left>6.81432in</Left>
             <Height>0.26333in</Height>
             <Width>1.59167in</Width>
             <ZIndex>2</ZIndex>
@@ -176,7 +177,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.3056in</Top>
-            <Left>7.34338in</Left>
+            <Left>6.66282in</Left>
             <Height>0.22334in</Height>
             <Width>0.20121in</Width>
             <ZIndex>3</ZIndex>
@@ -206,7 +207,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.3056in</Top>
-            <Left>7.59447in</Left>
+            <Left>6.91391in</Left>
             <Height>0.22334in</Height>
             <Width>0.20121in</Width>
             <ZIndex>4</ZIndex>
@@ -236,7 +237,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.3056in</Top>
-            <Left>7.81291in</Left>
+            <Left>7.13235in</Left>
             <Height>0.22334in</Height>
             <Width>0.20121in</Width>
             <ZIndex>5</ZIndex>
@@ -266,7 +267,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.3056in</Top>
-            <Left>8.76776in</Left>
+            <Left>8.0872in</Left>
             <Height>0.22334in</Height>
             <Width>0.20121in</Width>
             <ZIndex>6</ZIndex>
@@ -296,7 +297,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.3056in</Top>
-            <Left>8.56321in</Left>
+            <Left>7.88265in</Left>
             <Height>0.22334in</Height>
             <Width>0.20121in</Width>
             <ZIndex>7</ZIndex>
@@ -326,7 +327,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.3056in</Top>
-            <Left>8.30811in</Left>
+            <Left>7.62755in</Left>
             <Height>0.22334in</Height>
             <Width>0.20121in</Width>
             <ZIndex>8</ZIndex>
@@ -356,7 +357,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.3056in</Top>
-            <Left>8.07634in</Left>
+            <Left>7.39578in</Left>
             <Height>0.22334in</Height>
             <Width>0.20121in</Width>
             <ZIndex>9</ZIndex>
@@ -386,7 +387,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
             <Top>0.3056in</Top>
-            <Left>9.00508in</Left>
+            <Left>8.32452in</Left>
             <Height>0.22334in</Height>
             <Width>0.20121in</Width>
             <ZIndex>10</ZIndex>
@@ -420,7 +421,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox11</rd:DefaultName>
             <Top>1.4161in</Top>
-            <Left>1.32917in</Left>
+            <Left>1.02361in</Left>
             <Height>0.25in</Height>
             <Width>7.87712in</Width>
             <ZIndex>11</ZIndex>
@@ -435,10 +436,10 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>4.05221in</Height>
+        <Height>3.67721in</Height>
         <Style />
       </Body>
-      <Width>9.88334in</Width>
+      <Width>9.01112in</Width>
       <Page>
         <LeftMargin>1in</LeftMargin>
         <RightMargin>1in</RightMargin>
