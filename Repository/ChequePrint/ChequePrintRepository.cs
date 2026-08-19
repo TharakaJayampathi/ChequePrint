@@ -39,7 +39,7 @@ namespace ChequePrint.Repository.ChequePrint
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error generating cheque print: {ex.Message}", ex);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -103,7 +103,7 @@ namespace ChequePrint.Repository.ChequePrint
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error generating cheque print: {ex.Message}", ex);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -167,7 +167,7 @@ namespace ChequePrint.Repository.ChequePrint
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error generating cheque print: {ex.Message}", ex);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -554,15 +554,11 @@ namespace ChequePrint.Repository.ChequePrint
                     var newRow = lastRow + 1;
 
                     worksheet.Cell(newRow, 1).Value = chequeName ?? "N/A";
-
-                    // Date - format as M/d/yyyy (e.g., 8/5/2026)
                     worksheet.Cell(newRow, 2).Value = date;
                     worksheet.Cell(newRow, 2).Style.NumberFormat.Format = "M/d/yyyy";
-
                     worksheet.Cell(newRow, 3).Value = amount;
                     worksheet.Cell(newRow, 3).Style.NumberFormat.Format = "#,##0.00";
 
-                    // Printed On - format as M/d/yyyy h:mm:ss AM/PM
                     var printedOn = DateTime.Now;
                     worksheet.Cell(newRow, 4).Value = printedOn;
                     worksheet.Cell(newRow, 4).Style.NumberFormat.Format = "M/d/yyyy h:mm:ss AM/PM";
@@ -574,7 +570,7 @@ namespace ChequePrint.Repository.ChequePrint
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error tracking print in Excel: {ex.Message}");
+                throw new Exception(ex.Message);
             }
         }
     }
