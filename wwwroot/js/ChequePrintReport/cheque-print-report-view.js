@@ -29,7 +29,7 @@ function bindGrid() {
                 dataField: "date",
                 width: 250,
                 dataType: "date",
-                format: "yyyy-MM-dd HH:mm"
+                format: "yyyy-MM-dd"
             },
             {
                 dataField: "amount",
