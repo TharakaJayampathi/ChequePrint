@@ -1,5 +1,7 @@
 using ChequePrint.Interfaces.ChequePrint;
+using ChequePrint.Interfaces.ChequePrintReport;
 using ChequePrint.Repository.ChequePrint;
+using ChequePrint.Repository.ChequePrintReport;
 using System.Text;
 
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -9,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 // Register your repository
 builder.Services.AddScoped<IChequePrintRepository, ChequePrintRepository>();
+builder.Services.AddScoped<IChequePrintReportRepository, ChequePrintReportRepository>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
