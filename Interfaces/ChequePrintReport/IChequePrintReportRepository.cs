@@ -1,10 +1,9 @@
-﻿using ChequePrint.DTOs.ChequePrint;
+﻿using ChequePrint.ViewModels;
 
 namespace ChequePrint.Interfaces.ChequePrintReport
 {
     public interface IChequePrintReportRepository
     {
-        Task<(byte[] Content, string FileName)> ChequePrintAsync(CheckPrintDTO model);
-        Task<(byte[] Content, string FileName)> ChequePrintAttachmentUploadAsync(ChequePrintAttachmentUploadDTO model);
+        Task<List<ChequePrintReportViewModel>> GetAllAsync();
     }
 }

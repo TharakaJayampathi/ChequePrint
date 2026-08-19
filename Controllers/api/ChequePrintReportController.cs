@@ -1,5 +1,4 @@
-﻿using ChequePrint.DTOs.ChequePrint;
-using ChequePrint.Interfaces.ChequePrint;
+﻿using ChequePrint.Interfaces.ChequePrintReport;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChequePrint.Controllers.api
@@ -8,35 +7,22 @@ namespace ChequePrint.Controllers.api
     [ApiController]
     public class ChequePrintReportController : ControllerBase
     {
-        private readonly IChequePrintRepository _chequePrintRepository;
+        private readonly IChequePrintReportRepository _chequePrintReportRepository;
 
         public ChequePrintReportController(
-            IChequePrintRepository chequePrintRepository)
+            IChequePrintReportRepository chequePrintReportRepository)
         {
-            _chequePrintRepository = chequePrintRepository;
+            _chequePrintReportRepository = chequePrintReportRepository;
         }
 
-        [HttpPost("cheque-print")]
-        public async Task<IActionResult> ChequePrintAsync(CheckPrintDTO model)
+        [HttpGet]
+        [Route("get-all")]
+        public async Task<IActionResult> GetAllAsync()
         {
             try
             {
-                var (content, fileName) = await _chequePrintRepository.ChequePrintAsync(model);
-                return File(content, "application/pdf", fileName);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
-
-        [HttpPost("cheque-print-attachment-upload")]
-        public async Task<IActionResult> ChequePrintAttachmentUploadAsync([FromForm] ChequePrintAttachmentUploadDTO model)
-        {
-            try
-            {
-                var (content, fileName) = await _chequePrintRepository.ChequePrintAttachmentUploadAsync(model);
-                return File(content, "application/zip", fileName);
+                var _res = await _chequePrintReportRepository.GetAllAsync();
+                return Ok(_res);
             }
             catch (Exception ex)
             {
