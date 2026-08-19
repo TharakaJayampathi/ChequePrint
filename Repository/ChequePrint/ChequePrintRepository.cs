@@ -68,20 +68,20 @@ namespace ChequePrint.Repository.ChequePrint
                 int extensionCheckPrint = 1;
 
                 var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
-                        new CheckPrintDataSetDTO {
-                            EmployeeName = model.ChequeName,
-                            Amount = Amount,
-                            Year1 = Year1,
-                            Year2 = Year2,
-                            Year3 = Year3,
-                            Year4 = Year4,
-                            Month1 = Month1,
-                            Month2 = Month2,
-                            Date1 = Date1,
-                            Date2 = Date2,
-                            AmountInWord = _amountInWord
-                        }
-                    };
+            new CheckPrintDataSetDTO {
+                EmployeeName = model.ChequeName,
+                Amount = Amount,
+                Year1 = Year1,
+                Year2 = Year2,
+                Year3 = Year3,
+                Year4 = Year4,
+                Month1 = Month1,
+                Month2 = Month2,
+                Date1 = Date1,
+                Date2 = Date2,
+                AmountInWord = _amountInWord
+            }
+        };
 
                 var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
 
@@ -97,11 +97,71 @@ namespace ChequePrint.Repository.ChequePrint
                 var dateForFileName = model.Date.ToString("yyyy_MM_dd");
                 var fileName = $"Cheque_{safeName}_{dateForFileName}.pdf";
 
+                await TrackPrintInExcel(model, amountDecimal);
+
                 return (reportResultLetter.MainStream, fileName);
             }
             catch (Exception ex)
             {
                 throw new Exception($"Error generating cheque print: {ex.Message}", ex);
+            }
+        }
+
+        private async Task TrackPrintInExcel(CheckPrintDTO model, decimal amount)
+        {
+            try
+            {
+                var excelDirectory = Path.Combine(_hostingEnvironment.WebRootPath, "CheckPrintTracking");
+                var excelFilePath = Path.Combine(excelDirectory, "Check_Print_Tracking_v1.xlsx");
+
+                if (!Directory.Exists(excelDirectory))
+                {
+                    Directory.CreateDirectory(excelDirectory);
+                }
+
+                if (!File.Exists(excelFilePath))
+                {
+                    using (var workbook = new XLWorkbook())
+                    {
+                        var worksheet = workbook.Worksheets.Add("Tracking");
+                        worksheet.Cell(1, 1).Value = "Cheque Name/Employee Name";
+                        worksheet.Cell(1, 2).Value = "Date";
+                        worksheet.Cell(1, 3).Value = "Amount";
+                        worksheet.Cell(1, 4).Value = "Printed On";
+
+                        var headerRow = worksheet.Row(1);
+                        headerRow.Style.Font.Bold = true;
+                        headerRow.Style.Fill.BackgroundColor = XLColor.FromArgb(230, 230, 230);
+                        headerRow.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                        worksheet.Columns().AdjustToContents();
+
+                        workbook.SaveAs(excelFilePath);
+                    }
+                }
+
+                using (var workbook = new XLWorkbook(excelFilePath))
+                {
+                    var worksheet = workbook.Worksheet(1);
+
+                    var lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 1;
+                    var newRow = lastRow + 1;
+
+                    worksheet.Cell(newRow, 1).Value = model.ChequeName ?? "N/A";
+                    worksheet.Cell(newRow, 2).Value = model.Date.ToString("yyyy-MM-dd");
+                    worksheet.Cell(newRow, 3).Value = amount;
+                    worksheet.Cell(newRow, 4).Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    worksheet.Cell(newRow, 3).Style.NumberFormat.Format = "#,##0.00";
+
+                    worksheet.Columns().AdjustToContents();
+
+                    workbook.Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error tracking print in Excel: {ex.Message}");
             }
         }
 

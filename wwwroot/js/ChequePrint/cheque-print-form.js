@@ -25,6 +25,9 @@ $("#btnPrint").on("click", async function () {
         toastr.error("", "Cheque Name is mandatory", { progressBar: true });
         return false;
     }
+    if (paymentMethod == 1) {
+        chequeName = "CASH";
+    }
     if (!date) {
         toastr.error("", "Date is mandatory", { progressBar: true });
         return false;
