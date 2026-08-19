@@ -197,20 +197,21 @@ namespace ChequePrint.Repository.ChequePrint
                 int extensionCheckPrint = 1;
 
                 var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
-                        new CheckPrintDataSetDTO {
-                            Amount = Amount,
-                            Year1 = Year1,
-                            Year2 = Year2,
-                            Year3 = Year3,
-                            Year4 = Year4,
-                            Month1 = Month1,
-                            Month2 = Month2,
-                            Date1 = Date1,
-                            Date2 = Date2,
-                            AmountInWord = _amountInWord,
-                            ChequeName = model.ChequeName
-                        }
-                    };
+                    new CheckPrintDataSetDTO {
+                        EmployeeName = "",
+                        Amount = Amount,
+                        Year1 = Year1,
+                        Year2 = Year2,
+                        Year3 = Year3,
+                        Year4 = Year4,
+                        Month1 = Month1,
+                        Month2 = Month2,
+                        Date1 = Date1,
+                        Date2 = Date2,
+                        AmountInWord = _amountInWord,
+                        ChequeName = model.ChequeName
+                    }
+                };
 
                 var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\CreditChequePrint\\CreditChequePrint.rdlc";
 
@@ -225,6 +226,8 @@ namespace ChequePrint.Repository.ChequePrint
                 var safeName = string.Join("_", model.ChequeName.Split(Path.GetInvalidFileNameChars()));
                 var dateForFileName = model.Date.ToString("yyyy_MM_dd");
                 var fileName = $"Cheque_{safeName}_{dateForFileName}.pdf";
+
+                await TrackPrintInExcel(model.ChequeName, model.Date, amountDecimal);
 
                 return (reportResultLetter.MainStream, fileName);
             }
