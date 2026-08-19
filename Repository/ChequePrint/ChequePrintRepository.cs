@@ -69,7 +69,7 @@ namespace ChequePrint.Repository.ChequePrint
 
                 var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
                     new CheckPrintDataSetDTO {
-                        EmployeeName = model.ChequeName,
+                        EmployeeName = "",
                         Amount = Amount,
                         Year1 = Year1,
                         Year2 = Year2,
@@ -79,7 +79,8 @@ namespace ChequePrint.Repository.ChequePrint
                         Month2 = Month2,
                         Date1 = Date1,
                         Date2 = Date2,
-                        AmountInWord = _amountInWord
+                        AmountInWord = _amountInWord,
+                        ChequeName = model.ChequeName
                     }
                 };
 
