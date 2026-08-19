@@ -17,14 +17,14 @@ namespace ChequePrint.Repository.ChequePrintReport
         {
             try
             {
-                var _checkPrintTrackings = new List<ChequePrintReportViewModel>();
+                var _chequePrintTrackings = new List<ChequePrintReportViewModel>();
 
-                var excelDirectory = Path.Combine(_hostingEnvironment.WebRootPath, "CheckPrintTracking");
-                var excelFilePath = Path.Combine(excelDirectory, "Check_Print_Tracking_v1.xlsx");
+                var excelDirectory = Path.Combine(_hostingEnvironment.WebRootPath, "ChequePrintTracking");
+                var excelFilePath = Path.Combine(excelDirectory, "Cheque_Print_Tracking_v1.xlsx");
 
                 if (!File.Exists(excelFilePath))
                 {
-                    return _checkPrintTrackings;
+                    return _chequePrintTrackings;
                 }
 
                 using (var workbook = new XLWorkbook(excelFilePath))
@@ -46,11 +46,11 @@ namespace ChequePrint.Repository.ChequePrintReport
                         chequePrint.Amount = Convert.ToDouble(worksheet.Cell(row, 3).GetValue<decimal>());
                         chequePrint.PrintedOn = worksheet.Cell(row, 4).GetDateTime();
 
-                        _checkPrintTrackings.Add(chequePrint);
+                        _chequePrintTrackings.Add(chequePrint);
                     }
                 }
 
-                return _checkPrintTrackings;
+                return _chequePrintTrackings;
             }
             catch (Exception ex)
             {
