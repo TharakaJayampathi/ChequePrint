@@ -4,8 +4,6 @@
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- Select2 CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
 <div class="toolbar py-5 py-lg-10" id="kt_toolbar">
     <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
@@ -14,7 +12,7 @@
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
                 <li class="breadcrumb-item text-white opacity-75">
                     <a href="~/dashboard" class="text-white text-hover-primary">
-                        Smart Flow
+                        Cheque Print
                     </a>
                 </li>
                 <li class="breadcrumb-item">
@@ -45,7 +43,6 @@
                     </div>
                 </div>
             </div>
-            <br>
             <div class="card-body pt-0 w-auto">
                 <div class="card-body w-auto">
                     <div id="gridContainer">
@@ -56,49 +53,6 @@
     </div>
 </div>
 
-<style>
-    #formCreate .select2-container {
-    z-index: 10000;
-    width: 100% !important;
-    }
-
-    div.container {
-    max-width: 1200px
-    }
-    /*.fa {
-    height: 20px;
-    margin-top: -5px;
-    }*/
-    .fa-edit {
-    height: 20px;
-    width: 5px;
-    margin-top: -4px;
-    }
-
-    .fa-times {
-    height: 20px;
-    width: 5px;
-    margin-top: -4px;
-    }
-
-    .fa-ban {
-    height: 20px;
-    width: 5px;
-    margin-top: -4px;
-    }
-
-    .fa-check {
-    height: 20px;
-    width: 5px;
-    margin-top: -4px;
-    }
-
-    label {
-    color: black;
-    }
-</style>
-
 @section scripts {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="~/js/chequeprintreport/cheque-print-report-view.js" asp-append-version="true"></script>
 }
