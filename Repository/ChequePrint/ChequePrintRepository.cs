@@ -505,8 +505,6 @@ namespace ChequePrint.Repository.ChequePrint
             }
         }
 
-
-
         private async Task TrackPrintInExcel(string chequeName, DateTime date, decimal amount)
         {
             try
