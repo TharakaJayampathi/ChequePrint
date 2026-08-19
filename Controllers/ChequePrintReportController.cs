@@ -2,7 +2,7 @@
 
 namespace ChequePrint.Controllers
 {
-    public class CheckPrintReportController : Controller
+    public class ChequePrintReportController : Controller
     {
         public IActionResult Index()
         {
