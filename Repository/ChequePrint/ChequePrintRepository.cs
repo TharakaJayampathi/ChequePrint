@@ -68,20 +68,20 @@ namespace ChequePrint.Repository.ChequePrint
                 int extensionCheckPrint = 1;
 
                 var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
-            new CheckPrintDataSetDTO {
-                EmployeeName = model.ChequeName,
-                Amount = Amount,
-                Year1 = Year1,
-                Year2 = Year2,
-                Year3 = Year3,
-                Year4 = Year4,
-                Month1 = Month1,
-                Month2 = Month2,
-                Date1 = Date1,
-                Date2 = Date2,
-                AmountInWord = _amountInWord
-            }
-        };
+                    new CheckPrintDataSetDTO {
+                        EmployeeName = model.ChequeName,
+                        Amount = Amount,
+                        Year1 = Year1,
+                        Year2 = Year2,
+                        Year3 = Year3,
+                        Year4 = Year4,
+                        Month1 = Month1,
+                        Month2 = Month2,
+                        Date1 = Date1,
+                        Date2 = Date2,
+                        AmountInWord = _amountInWord
+                    }
+                };
 
                 var reportRdlcPath = $"{_hostingEnvironment.WebRootPath}\\Report\\ChequePrint\\ChequePrint.rdlc";
 
@@ -97,7 +97,7 @@ namespace ChequePrint.Repository.ChequePrint
                 var dateForFileName = model.Date.ToString("yyyy_MM_dd");
                 var fileName = $"Cheque_{safeName}_{dateForFileName}.pdf";
 
-                await TrackPrintInExcel(model, amountDecimal);
+                await TrackPrintInExcel(model.ChequeName, model.Date, amountDecimal);
 
                 return (reportResultLetter.MainStream, fileName);
             }
@@ -107,7 +107,7 @@ namespace ChequePrint.Repository.ChequePrint
             }
         }
 
-        private async Task TrackPrintInExcel(CheckPrintDTO model, decimal amount)
+        private async Task TrackPrintInExcel(string chequeName, DateTime date, decimal amount)
         {
             try
             {
@@ -147,10 +147,10 @@ namespace ChequePrint.Repository.ChequePrint
                     var lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 1;
                     var newRow = lastRow + 1;
 
-                    worksheet.Cell(newRow, 1).Value = model.ChequeName ?? "N/A";
+                    worksheet.Cell(newRow, 1).Value = chequeName ?? "N/A";
 
                     // Date - format as M/d/yyyy (e.g., 8/5/2026)
-                    worksheet.Cell(newRow, 2).Value = model.Date;
+                    worksheet.Cell(newRow, 2).Value = date;
                     worksheet.Cell(newRow, 2).Style.NumberFormat.Format = "M/d/yyyy";
 
                     worksheet.Cell(newRow, 3).Value = amount;
