@@ -263,6 +263,7 @@ namespace ChequePrint.Repository.ChequePrint
                             }
 
                             var usedFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                            var successfulPrints = new List<(string EmployeeName, DateTime Date, decimal Amount)>();
 
                             foreach (var item in _checkPrintDataList)
                             {
@@ -340,6 +341,13 @@ namespace ChequePrint.Repository.ChequePrint
                                 {
                                     await entryStream.WriteAsync(reportResultLetter.MainStream, 0, reportResultLetter.MainStream.Length);
                                 }
+
+                                successfulPrints.Add((item.EmployeeName, parsedDate, amountDecimal));
+                            }
+
+                            foreach (var print in successfulPrints)
+                            {
+                                await TrackPrintInExcel(print.EmployeeName, print.Date, print.Amount);
                             }
 
                             if (File.Exists(filePath))
