@@ -69,7 +69,7 @@ namespace ChequePrint.Repository.ChequePrint
 
                 var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
                     new CheckPrintDataSetDTO {
-                        EmployeeName = "",
+                        ChequeName = model.ChequeName,
                         Amount = Amount,
                         Year1 = Year1,
                         Year2 = Year2,
@@ -79,8 +79,7 @@ namespace ChequePrint.Repository.ChequePrint
                         Month2 = Month2,
                         Date1 = Date1,
                         Date2 = Date2,
-                        AmountInWord = _amountInWord,
-                        ChequeName = model.ChequeName
+                        AmountInWord = _amountInWord
                     }
                 };
 
@@ -134,7 +133,7 @@ namespace ChequePrint.Repository.ChequePrint
 
                 var checkPrintLetterDetail = new List<CheckPrintDataSetDTO> {
                     new CheckPrintDataSetDTO {
-                        EmployeeName = "",
+                        ChequeName = model.ChequeName,
                         Amount = Amount,
                         Year1 = Year1,
                         Year2 = Year2,
@@ -145,7 +144,6 @@ namespace ChequePrint.Repository.ChequePrint
                         Date1 = Date1,
                         Date2 = Date2,
                         AmountInWord = _amountInWord,
-                        ChequeName = model.ChequeName
                     }
                 };
 
