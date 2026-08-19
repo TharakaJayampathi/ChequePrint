@@ -68,7 +68,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsCreditChequePrint</rd:DataSetName>
-        <rd:SchemaPath>D:\New folder (5)\DataSet\CreditCheckPrint\dsCreditChequePrint.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\New folder (5)\DataSet\CreditChequePrint\dsCreditChequePrint.xsd</rd:SchemaPath>
         <rd:TableName>CreditChequePrint</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -112,8 +112,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.98333in</Top>
-            <Left>1.83932in</Left>
+            <Top>0.85833in</Top>
+            <Left>0.96432in</Left>
             <Height>0.26333in</Height>
             <Width>7.10834in</Width>
             <ZIndex>1</ZIndex>
@@ -134,7 +134,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!AmountInWord.Value, "dsCreditChequePrint")</Value>
+                    <Value>=First(Fields!Amount.Value, "dsCreditChequePrint")</Value>
                     <Style>
                       <FontStyle>Italic</FontStyle>
                       <FontSize>14pt</FontSize>
@@ -408,7 +408,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Amount.Value, "dsCreditChequePrint")</Value>
+                    <Value>=First(Fields!ChequeName.Value, "dsCreditChequePrint")</Value>
                     <Style>
                       <FontStyle>Italic</FontStyle>
                       <FontSize>11pt</FontSize>
@@ -423,7 +423,7 @@
             <Top>1.4161in</Top>
             <Left>1.02361in</Left>
             <Height>0.25in</Height>
-            <Width>7.87712in</Width>
+            <Width>5.62712in</Width>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>
