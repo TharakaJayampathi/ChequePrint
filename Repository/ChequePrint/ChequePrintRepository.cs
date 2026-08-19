@@ -148,11 +148,18 @@ namespace ChequePrint.Repository.ChequePrint
                     var newRow = lastRow + 1;
 
                     worksheet.Cell(newRow, 1).Value = model.ChequeName ?? "N/A";
-                    worksheet.Cell(newRow, 2).Value = model.Date.ToString("yyyy-MM-dd");
-                    worksheet.Cell(newRow, 3).Value = amount;
-                    worksheet.Cell(newRow, 4).Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+                    // Save Date as actual DateTime with proper format
+                    worksheet.Cell(newRow, 2).Value = model.Date;
+                    worksheet.Cell(newRow, 2).Style.NumberFormat.Format = "m/d/yyyy h:mm:ss AM/PM";
+
+                    worksheet.Cell(newRow, 3).Value = amount;
                     worksheet.Cell(newRow, 3).Style.NumberFormat.Format = "#,##0.00";
+
+                    // Save Printed On as actual DateTime with proper format
+                    var printedOn = DateTime.Now;
+                    worksheet.Cell(newRow, 4).Value = printedOn;
+                    worksheet.Cell(newRow, 4).Style.NumberFormat.Format = "m/d/yyyy h:mm:ss AM/PM";
 
                     worksheet.Columns().AdjustToContents();
 
