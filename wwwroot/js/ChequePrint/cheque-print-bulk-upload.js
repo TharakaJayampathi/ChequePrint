@@ -15,8 +15,6 @@
         dangerMode: true,
     }).then(function (isConfirm) {
         if (isConfirm) {
-            $('#btnText').hide();
-            $('#btnSpinner').show();
             $('#btnAddAttachment').prop('disabled', true);
             document.getElementById("pageOverlay").style.display = "block";
             var files = input.files;
@@ -82,8 +80,6 @@
                     }
                 },
                 complete: function () {
-                    $('#btnText').show();
-                    $('#btnSpinner').hide();
                     $('#btnAddAttachment').prop('disabled', false);
                     document.getElementById("pageOverlay").style.display = "none";
                     document.getElementById('txtAttachment').value = '';
