@@ -440,12 +440,14 @@
       </Body>
       <Width>9.88334in</Width>
       <Page>
-        <LeftMargin>0.3in</LeftMargin>
-        <RightMargin>0.3in</RightMargin>
-        <TopMargin>0.3in</TopMargin>
-        <BottomMargin>0.3in</BottomMargin>
-        <Style />
-      </Page>
+          <PageHeight>8.5in</PageHeight>
+          <PageWidth>11in</PageWidth>
+          <LeftMargin>0.3in</LeftMargin>
+          <RightMargin>0.3in</RightMargin>
+          <TopMargin>0.3in</TopMargin>
+          <BottomMargin>0.3in</BottomMargin>
+          <Style />
+        </Page>
     </ReportSection>
   </ReportSections>
   <ReportParameters>
